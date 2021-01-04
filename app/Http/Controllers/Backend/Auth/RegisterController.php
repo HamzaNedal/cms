@@ -29,7 +29,7 @@ class RegisterController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = RouteServiceProvider::HOME;
+    protected $redirectTo = RouteServiceProvider::HOME_ADMIN;
 
     /**
      * Create a new controller instance.
@@ -64,10 +64,16 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
-        return User::create([
-            'name' => $data['name'],
-            'email' => $data['email'],
-            'password' => Hash::make($data['password']),
-        ]);
+        // return User::create([
+        //     'name' => $data['name'],
+        //     'email' => $data['email'],
+        //     'password' => Hash::make($data['password']),
+        // ]);
+
+        return ;
     }
+    // public function showRegistrationForm()
+    // {
+    //     return view('backend.auth.register');
+    // }
 }
