@@ -16,6 +16,10 @@ class DatabaseSeeder extends Seeder
         // \App\Models\User::factory(10)->create();
         $this->call([
             RolesTableSeeder::class,
+            CategorySeeder::class,
+            PostSeeder::class,
+            PageSeeder::class,
+            CommentSeeder::class,
         ]);
     }
 }

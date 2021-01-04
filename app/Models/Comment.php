@@ -9,4 +9,11 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class Comment extends Model
 {
     use HasFactory,SoftDeletes;
+
+    protected $guarded = [];
+
+    public function post()
+    {
+        return $this->belongsTo(Post::class);
+    }
 }
