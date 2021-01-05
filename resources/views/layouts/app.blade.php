@@ -19,10 +19,12 @@
 	<link href="https://fonts.googleapis.com/css?family=Poppins:300,300i,400,400i,500,600,600i,700,700i,800" rel="stylesheet">
 	<link href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900" rel="stylesheet"> 
     <!-- Styles -->
+    <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    <link rel="stylesheet" href="{{ asset('/frontend') }}/css/bootstrap.min.css">
 	<link rel="stylesheet" href="{{ asset('/frontend') }}/css/plugins.css">
     <link rel="stylesheet" href="{{ asset('/frontend') }}/css/style.css">
     <link rel="stylesheet" href="{{ asset('/frontend') }}/css/custom.css">
-    <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+   
 </head>
 <body>
     <div id="app">
@@ -89,7 +91,7 @@
         </div>
     </div>
         <!-- JS Files -->
-        <script src="{{ asset('js/app.js') }}" defer></script>
+        {{-- <script src="{{ asset('js/app.js') }}" defer></script> --}}
         <script src="{{ asset('frontend') }}/js/vendor/jquery-3.2.1.min.js"></script>
         <script src="{{ asset('frontend') }}/js/vendor/modernizr-3.5.0.min.js"></script>
         <script src="{{ asset('frontend') }}/js/plugins.js"></script>

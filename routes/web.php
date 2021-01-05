@@ -11,6 +11,7 @@ use App\Http\Controllers\Frontend\Auth\RegisterController;
 use App\Http\Controllers\Frontend\Auth\ResetPasswordController;
 use App\Http\Controllers\Frontend\Auth\VerificationController;
 use App\Http\Controllers\Frontend\HomeController;
+use App\Http\Frontend\Controllers\IndexController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -25,9 +26,9 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+// Route::get('/', function () {
+//     return view('welcome');
+// });
 
 // Auth::routes();
 // Authentication Routes...
@@ -43,6 +44,8 @@ Route::post('password/reset', [ResetPasswordController::class, 'reset'])->name('
 Route::get('email/verify', [VerificationController::class, 'show'])->name('verification.notice');
 Route::get('/email/verify/{id}/{hash}', [VerificationController::class, 'verify'])->name('verification.verify');
 Route::post('email/resend', [VerificationController::class, 'resend'])->name('verification.resend');
+
+
 
 Route::group(['prefix'=>'admin','as'=>'admin.'],function(){
     Route::get('/login', [AuthLoginController::class, 'showLoginForm'])->name('show_login_form');
@@ -61,4 +64,6 @@ Route::group(['prefix'=>'admin','as'=>'admin.'],function(){
 
 
 
-Route::get('/home', [HomeController::class, 'index'])->name('home');
+Route::get('/', [HomeController::class, 'index'])->name('home');
+Route::get('/{post}',[HomeController::class,'show_post'])->name('index');
+Route::post('/{post:slug}',[HomeController::class,'store_comment'])->name('add.comment');
