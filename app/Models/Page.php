@@ -21,6 +21,10 @@ class Page extends Model
             ]
         ];
     }
+    function scopeIsPage($query)
+    {
+        $query->where('post_type', 'page');
+    }
     public function category()
     {
         return $this->belongsTo(Category::class,'category_id');

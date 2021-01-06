@@ -19,7 +19,7 @@ class CommentSeeder extends Seeder
     {
         $users = collect(User::where('id', '>', 2)->get()->modelKeys());
         $posts = collect(Post::wherePostType('post')->whereStatus(1)->whereCommentAble(1)->get());
-        Comment::factory()->count(1000)->state(function () use ($users, $posts) {
+        Comment::factory()->count(5000)->state(function () use ($users, $posts) {
             $id = $posts->random()->id;
             $created_at = $posts->where('id', $id)->first()->created_at->timestamp;
             $current_date = Carbon::now()->timestamp;

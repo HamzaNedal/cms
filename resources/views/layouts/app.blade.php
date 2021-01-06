@@ -96,5 +96,9 @@
         <script src="{{ asset('frontend') }}/js/vendor/modernizr-3.5.0.min.js"></script>
         <script src="{{ asset('frontend') }}/js/plugins.js"></script>
         <script src="{{ asset('frontend') }}/js/active.js"></script>
+
+        @php
+            $renderer = Debugbar::getJavascriptRenderer();
+        @endphp
 </body>
 </html>

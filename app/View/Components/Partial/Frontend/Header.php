@@ -2,6 +2,9 @@
 
 namespace App\View\Components\Partial\Frontend;
 
+use App\Helper\CategorySingleton;
+use App\Models\Category;
+use App\Models\Page;
 use Illuminate\View\Component;
 
 class Header extends Component
@@ -13,7 +16,6 @@ class Header extends Component
      */
     public function __construct()
     {
-        //
     }
 
     /**
@@ -23,6 +25,19 @@ class Header extends Component
      */
     public function render()
     {
-        return view('components.partial.frontend.header');
+        $categories = Category::whereStatus(1)->get();
+        $pages = Page::isPage()->get();
+        return view('components.partial.frontend.header', compact('categories', 'pages'));
     }
+
+
+    // public function categories()
+    // { 
+    //     return Category::whereStatus(1)->get();
+    // }
+    // public function pages()
+    // {
+
+    //     return Page::isPage()->get();
+    // }
 }

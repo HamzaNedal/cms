@@ -16,6 +16,7 @@ $app = new Illuminate\Foundation\Application(
 );
 $app->register(Stevebauman\Purify\PurifyServiceProvider::class);
 
+   
 /*
 |--------------------------------------------------------------------------
 | Bind Important Interfaces

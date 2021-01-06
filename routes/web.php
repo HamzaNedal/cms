@@ -65,5 +65,12 @@ Route::group(['prefix'=>'admin','as'=>'admin.'],function(){
 
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
-Route::get('/{post}',[HomeController::class,'show_post'])->name('index');
+Route::get('/contact-us',[HomeController::class,'contact_us'])->name('contact');
+Route::post('/contact-us',[HomeController::class,'store_contact_us'])->name('store.contact');
+Route::get('/{page_slug}',[HomeController::class,'show_page'])->name('pages.show');
+Route::get('/post/{post}',[HomeController::class,'show_post'])->name('posts.show');
 Route::post('/{post:slug}',[HomeController::class,'store_comment'])->name('add.comment');
+Route::get('/posts/search',[HomeController::class,'search'])->name('posts.search');
+Route::get('/category/{category:slug}',[HomeController::class,'category'])->name('category.posts');
+Route::get('/archive/{date}',[HomeController::class,'archive'])->name('archive.posts');
+Route::get('/author/{user:username}',[HomeController::class,'author'])->name('author.posts');

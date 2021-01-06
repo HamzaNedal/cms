@@ -3,8 +3,11 @@
 namespace App\Http\Controllers\Frontend;
 
 use App\Http\Controllers\Controller;
+use App\Models\Category;
 use App\Models\Comment;
+use App\Models\Contact;
 use App\Models\Post;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Stevebauman\Purify\Facades\Purify;
@@ -29,35 +32,51 @@ class HomeController extends Controller
     public function index()
     {
         $posts = Post::with(['category', 'user', 'media'])
-        ->whereHas('category',function($query){
-            $query->whereStatus(1);
-        })->whereHas('user',function($query){
-            $query->whereStatus(1);
-        })
-        ->wherePostType('post')->whereStatus(1)->orderBy('id', 'desc')->paginate(5);
-        return view('frontend.index',compact('posts'));
+            ->whereHas('category', function ($query) {
+                $query->whereStatus(1);
+            })->whereHas('user', function ($query) {
+                $query->whereStatus(1);
+            })
+            ->wherePostType('post')->whereStatus(1)->orderBy('id', 'desc')->paginate(5);
+        return view('frontend.index', compact('posts'));
     }
 
 
-    public function show_post($slug){
-        $post = Post::with(['category', 'user', 'media','approved_comments'])
+    public function show_post($slug)
+    {
+        $post = Post::with(['category', 'user', 'media', 'approved_comments'])
+            ->whereStatus(1)
+            ->wherePostType('post')
+            ->whereSlug($slug)
+            ->whereHas('category', function ($query) {
+                $query->whereStatus(1);
+            })
+            ->whereHas('user', function ($query) {
+                $query->whereStatus(1);
+            })
+            ->orWhereHas('approved_comments', function ($query) {
+                $query->orderBy('created_at','desc');
+            })
+            ->whereSlug($slug)
+            ->first();
 
-        ->whereHas('category',function($query){
-            $query->whereStatus(1);
-        })->whereHas('user',function($query){
-            $query->whereStatus(1);
-        })->OrwhereHas('approved_comments',function($query){
-            $query->orderBy('id','desc');
-        })       
-        ->wherePostType('post')
-        ->whereStatus(1)
-        ->whereSlug($slug)
-        ->first();
-
-        return view('frontend.post',compact('post'));
+        return view('frontend.post', compact('post'));
     }
+    public function show_page($slug)
+    {
+        $page = Post::with(['user'])
+            ->whereHas('user', function ($query) {
+                $query->whereStatus(1);
+            })
+            ->wherePostType('page')
+            ->whereStatus(1)
+            ->whereSlug($slug)
+            ->first();
 
-    public function store_comment(Request $request,Post $post){
+        return view('frontend.page', compact('page'));
+    }
+    public function store_comment(Request $request, Post $post)
+    {
         // dd($request->all());
         $validation = Validator::make($request->all(), [
             'name'      => 'required',
@@ -65,8 +84,8 @@ class HomeController extends Controller
             'url'       => 'nullable|url',
             'comment'   => 'required|min:10',
         ]);
-       
-        if ($validation->fails()){
+
+        if ($validation->fails()) {
             return redirect()->back()->withErrors($validation)->withInput();
         }
         $post = $post->wherePostType('post')->whereStatus(1)->first();
@@ -104,4 +123,116 @@ class HomeController extends Controller
             'alert-type' => 'danger'
         ]);
     }
+
+
+    public function contact_us()
+    {
+        return view('frontend.contact');
+    }
+    public function store_contact_us(Request $request)
+    {
+        $validation = Validator::make($request->all(), [
+            'name'      => 'required',
+            'email'     => 'required|email',
+            'mobile'    => 'nullable|numeric',
+            'title'     => 'required|min:5',
+            'message'   => 'required|min:10',
+        ]);
+        if ($validation->fails()){
+            return redirect()->back()->withErrors($validation)->withInput();
+        }
+
+        $data['name']       = $request->name;
+        $data['email']      = $request->email;
+        $data['mobile']     = $request->mobile;
+        $data['title']      = $request->title;
+        $data['message']    = $request->message;
+
+        Contact::create($data);
+
+        return redirect()->back()->with([
+            'message' => 'Message sent successfully',
+            'alert-type' => 'success'
+        ]);
+    }
+
+    public function search(Request $request )
+    {
+        $keyword = isset($request->keyword) && $request->keyword != '' ? $request->keyword : null;
+
+        $posts = Post::with(['media', 'user'])
+            ->whereHas('category', function ($query) {
+                $query->whereStatus(1);
+            })
+            ->whereHas('user', function ($query) {
+                $query->whereStatus(1);
+            });
+          
+        if ($keyword != null) {
+            $posts = $posts->search($keyword, null, true);
+            
+        }
+
+        $posts = $posts->post()->active()->orderBy('id', 'desc')->paginate(5);
+
+        return view('frontend.index', compact('posts'));
+    }
+
+    public function category(Category $category){
+     
+        // $category = $category->whereStatus(1)->first()->id;
+
+        if ($category->status == 1) {
+            $posts = Post::with(['media','user','category'])
+                     ->withCount('approved_comments')
+                     ->whereCategoryId($category->id)
+                     ->post()
+                     ->active()
+                     ->descById()
+                     ->paginate(5);
+        
+            return view('frontend.index',compact('posts'));
+        }
+
+        return redirect()->route('home');
+    }
+
+    public function archive($date)
+    {
+       $explodeed_date = explode('-',$date);
+       $month = $explodeed_date[0];
+       $year = $explodeed_date[1];
+
+       $posts = Post::with(['media','user','category'])
+       ->withCount('approved_comments')
+       ->whereMonth('created_at',$month)
+       ->whereYear('created_at',$year)
+       ->post()
+       ->active()
+       ->descById()
+       ->paginate(5);
+
+       return view('frontend.index',compact('posts'));
+    }
+
+
+    public function author(User $user)
+    {
+    
+        if ($user->status == 1) {
+            $posts = Post::with(['media','user','user'])
+                     ->withCount('approved_comments')
+                     ->whereUserId($user->id)
+                     ->post()
+                     ->active()
+                     ->descById()
+                     ->paginate(5);
+
+            return view('frontend.index',compact('posts'));
+        }
+
+        return redirect()->route('home');
+    }
+
+
 }
