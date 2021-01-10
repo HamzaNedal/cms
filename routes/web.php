@@ -11,6 +11,7 @@ use App\Http\Controllers\Frontend\Auth\RegisterController;
 use App\Http\Controllers\Frontend\Auth\ResetPasswordController;
 use App\Http\Controllers\Frontend\Auth\VerificationController;
 use App\Http\Controllers\Frontend\HomeController;
+use App\Http\Controllers\Frontend\UserController;
 use App\Http\Frontend\Controllers\IndexController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -74,3 +75,12 @@ Route::get('/posts/search',[HomeController::class,'search'])->name('posts.search
 Route::get('/category/{category:slug}',[HomeController::class,'category'])->name('category.posts');
 Route::get('/archive/{date}',[HomeController::class,'archive'])->name('archive.posts');
 Route::get('/author/{user:username}',[HomeController::class,'author'])->name('author.posts');
+
+Route::group(['prefix'=>'user','as'=>'user.','middleware'=>"auth"],function(){
+    Route::get('/dashboard',[UserController::class,'index'])->name('dashboard');
+    Route::get('/create-post',[UserController::class,'create_post'])->name('create.post');
+    Route::post('/create-post',[UserController::class,'store_post'])->name('store.post');
+    Route::get('/edit-post/{post:slug}',[UserController::class,'edit_post'])->name('edit.post');
+    Route::post('/edit-post/{post:slug}',[UserController::class,'update_post'])->name('update.post');
+    Route::post('/delete-post-media/{media_id}',[UserController::class,'destroy_post_media'])->name('post.media.destroy');
+});

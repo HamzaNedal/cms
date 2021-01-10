@@ -24,7 +24,7 @@
 	<link rel="stylesheet" href="{{ asset('/frontend') }}/css/plugins.css">
     <link rel="stylesheet" href="{{ asset('/frontend') }}/css/style.css">
     <link rel="stylesheet" href="{{ asset('/frontend') }}/css/custom.css">
-   
+   @stack('css')
 </head>
 <body>
     <div id="app">
@@ -85,6 +85,9 @@
         <div class="wrapper" id="wrapper">
         <x-partial.frontend.header />
         <main>
+            <div class="col-12">
+                <x-partial.frontend.flash />
+            </div>
             @yield('content')
         </main>
         <x-partial.frontend.footer />
@@ -92,11 +95,11 @@
     </div>
         <!-- JS Files -->
         {{-- <script src="{{ asset('js/app.js') }}" defer></script> --}}
-        <script src="{{ asset('frontend') }}/js/vendor/jquery-3.2.1.min.js"></script>
+        <script src="https://code.jquery.com/jquery-3.5.1.min.js" crossorigin="anonymous"></script>
         <script src="{{ asset('frontend') }}/js/vendor/modernizr-3.5.0.min.js"></script>
         <script src="{{ asset('frontend') }}/js/plugins.js"></script>
         <script src="{{ asset('frontend') }}/js/active.js"></script>
-
+        @stack('js')
         @php
             $renderer = Debugbar::getJavascriptRenderer();
         @endphp

@@ -59,74 +59,52 @@
 								</div>
 								<!-- End Shopping Cart -->
 							</li>
+							
 							<li class="setting__bar__icon"><a class="setting__active" href="#"></a>
 								<div class="searchbar__content setting__block">
 									<div class="content-inner">
-										<div class="switcher-currency">
-											<strong class="label switcher-label">
-												<span>Currency</span>
-											</strong>
-											<div class="switcher-options">
-												<div class="switcher-currency-trigger">
-													<span class="currency-trigger">USD - US Dollar</span>
-													<ul class="switcher-dropdown">
-														<li>GBP - British Pound Sterling</li>
-														<li>EUR - Euro</li>
-													</ul>
-												</div>
+									
+										{{-- <div class="switcher-options">
+											<div class="switcher-currency-trigger">
+												<span class="currency-trigger">Fashion Store</span>
+												<ul class="switcher-dropdown">
+													<li>Furniture</li>
+													<li>Shoes</li>
+													<li>Speaker Store</li>
+													<li>Furniture</li>
+												</ul>
 											</div>
-										</div>
-										<div class="switcher-currency">
-											<strong class="label switcher-label">
-												<span>Language</span>
-											</strong>
-											<div class="switcher-options">
-												<div class="switcher-currency-trigger">
-													<span class="currency-trigger">English01</span>
-													<ul class="switcher-dropdown">
-														<li>English02</li>
-														<li>English03</li>
-														<li>English04</li>
-														<li>English05</li>
-													</ul>
-												</div>
-											</div>
-										</div>
-										<div class="switcher-currency">
-											<strong class="label switcher-label">
-												<span>Select Store</span>
-											</strong>
-											<div class="switcher-options">
-												<div class="switcher-currency-trigger">
-													<span class="currency-trigger">Fashion Store</span>
-													<ul class="switcher-dropdown">
-														<li>Furniture</li>
-														<li>Shoes</li>
-														<li>Speaker Store</li>
-														<li>Furniture</li>
-													</ul>
-												</div>
-											</div>
-										</div>
+										</div> --}}
 										<div class="switcher-currency">
 											<strong class="label switcher-label">
 												<span>My Account</span>
 											</strong>
 											<div class="switcher-options">
+												
 												<div class="switcher-currency-trigger">
-													<div class="setting__menu">
-														<span><a href="#">Compare Product</a></span>
-														<span><a href="#">My Account</a></span>
-														<span><a href="#">My Wishlist</a></span>
-														<span><a href="#">Sign In</a></span>
-														<span><a href="#">Create An Account</a></span>
-													</div>
+													{{-- <span class="currency-trigger">My Account</span> --}}
+													@guest
+													<a href="{{ route('login') }}"><span class="currency-trigger">Login</span></a>
+													<a href="{{ route('register') }}"><span class="currency-trigger">Register</span></a>
+													
+													@endguest
+													@auth
+													<a href="{{ route('user.dashboard') }}"><span class="currency-trigger">Dashboard</span></a>
+													<a href="{{ route('logout') }}" onclick="event.preventDefault();document.getElementById('logout-form').submit();"><span class="currency-trigger">Logout</span></a>
+														<form action="{{ route('logout') }}" method="post" class="d-none" id="logout-form">
+															@csrf
+															<input type="submit" value="logout" class="currency-trigger btn btn-link">
+														</form>
+													@endauth
 												</div>
 											</div>
 										</div>
 									</div>
 								</div>
 							</li>
+
+							
+							
 						</ul>
 					</div>
 				</div>

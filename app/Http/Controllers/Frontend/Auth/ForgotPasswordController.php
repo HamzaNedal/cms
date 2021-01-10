@@ -22,6 +22,10 @@ class ForgotPasswordController extends Controller
 
     public function showLinkRequestForm()
     {
+        
+        if (auth()->check()) {
+            return redirect()->route('home');
+        }
         return view('frontend.auth.passwords.email');
     }
 }

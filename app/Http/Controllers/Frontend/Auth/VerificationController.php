@@ -27,7 +27,7 @@ class VerificationController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = '/dashboard';
+    protected $redirectTo = '/';
 
     /**
      * Create a new controller instance.
@@ -45,5 +45,15 @@ class VerificationController extends Controller
         return $request->user()->hasVerifiedEmail()
                         ? redirect($this->redirectPath())
                         : view('frontend.auth.verify');
+    }
+
+    protected function verified(Request $request)
+    {
+        $request->user()->update(['status'=>1]);
+
+        return redirect()->route('home')->with([
+            'message'=>"Your account is activated successfully ",
+            'alert-type'=>'success'
+        ]);
     }
 }

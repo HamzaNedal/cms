@@ -10,7 +10,7 @@ use Nicolaslopezj\Searchable\SearchableTrait;
 class Post extends Model
 {
     use HasFactory,SoftDeletes,Sluggable, SearchableTrait;
-    protected $guarded = [];
+    protected $fillable = ['title','description','category_id','comment_able','status','slug','post_type','user_id'];
     public function sluggable() : array
     {
         return [
@@ -65,6 +65,6 @@ class Post extends Model
   
     public function media()
     {
-        return $this->hasMany(PostMedia::class);
+        return $this->hasMany(PostMedia::class,'post_id');
     }
 }
