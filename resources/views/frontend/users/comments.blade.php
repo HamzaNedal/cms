@@ -11,22 +11,22 @@
                             <table class="table">
                                 <thead>
                                     <tr>
-                                        <td>Title</td>
-                                        <td>Comments</td>
+                                        <td>Name</td>
+                                        <td>Post</td>
                                         <td>Status</td>
                                         <td>Action</td>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @forelse ($posts as $post)
+                                    @forelse ($comments as $comment)
                                     <tr>
-                                        <td>{{ $post->title }}</td>
-                                        <td>{{ $post->approved_comments_count }}</td>
-                                        <td>{{ $post->status }}</td>
+                                        <td>{{ $comment->name }}</td>
+                                        <td>{{ $comment->post->title }}</td>
+                                        <td>{{ $comment->status }}</td>
                                         <td>
-                                            <a href="{{ route('user.edit.post',$post->slug) }}" class="btn btn-sm btn-primary"><i class="fa fa-edit"></i></a>
-                                            <a href="#" class="btn btn-sm btn-danger" onclick="if(confirm('Are you sure ? ')){document.getElementById('post-delete-{{$post->slug }}').submit(); }else {return false;}"><i class="fa fa-trash"></i></a>
-                                            <form action="{{ route('user.destroy.post',$post->slug) }}" method="post" class="d-none" id="post-delete-{{ $post->slug }}">
+                                            <a href="{{ route('user.comment.edit',$comment->id) }}" class="btn btn-sm btn-primary"><i class="fa fa-edit"></i></a>
+                                            <a href="#" class="btn btn-sm btn-danger" onclick="if(confirm('Are you sure ? ')){document.getElementById('comment-dide-{{$comment->id }}').submit(); }else {return false;}"><i class="fa fa-trash"></i></a>
+                                            <form action="{{ route('user.comment.destroy',$comment->id) }}" method="post" class="d-none" id="comment-dide-{{ $comment->id }}">
                                                 @csrf
                                                 @method('delete')
                                             </form>
@@ -42,7 +42,7 @@
                                 </tbody>
                                 <tfoot>
                                     <tr>
-                                        <td colspan="4">{{ $posts->links('pagination::blog') }}</td>
+                                        <td colspan="4">{{ $comments->links('pagination::blog') }}</td>
                                     </tr>
                                 </tfoot>
                             </table>

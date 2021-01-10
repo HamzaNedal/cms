@@ -82,5 +82,10 @@ Route::group(['prefix'=>'user','as'=>'user.','middleware'=>"auth"],function(){
     Route::post('/create-post',[UserController::class,'store_post'])->name('store.post');
     Route::get('/edit-post/{post:slug}',[UserController::class,'edit_post'])->name('edit.post');
     Route::post('/edit-post/{post:slug}',[UserController::class,'update_post'])->name('update.post');
+    Route::delete('/delete-post/{post:slug}',[UserController::class,'destroy_post'])->name('destroy.post');
     Route::post('/delete-post-media/{media_id}',[UserController::class,'destroy_post_media'])->name('post.media.destroy');
+    Route::get('/comments',[UserController::class,'show_comments'])->name('comments');
+    Route::get('/comments/{id}/edit',[UserController::class,'edit_comment'])->name('comment.edit');
+    Route::post('/comments/{comment:id}/update',[UserController::class,'update_comment'])->name('comment.update');
+    Route::delete('/comments/{comment:id}/destroy',[UserController::class,'destroy_comment'])->name('comment.destroy');
 });

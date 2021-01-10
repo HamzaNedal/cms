@@ -88,8 +88,7 @@ class HomeController extends Controller
         if ($validation->fails()) {
             return redirect()->back()->withErrors($validation)->withInput();
         }
-        $post = $post->wherePostType('post')->whereStatus(1)->first();
-        if ($post) {
+        if ($post->post_type == 'post' && $post->status == 1) {
 
             $userId = auth()->check() ? auth()->id() : null;
             $data['name']           = $request->name;

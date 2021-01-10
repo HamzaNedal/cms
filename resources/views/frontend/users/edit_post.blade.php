@@ -31,7 +31,7 @@
                             <select name="category_id" id="category_id" value="{{ old('category_id',$post->category_id) }}" class="form-control">
                                 @foreach ($categories as $id => $name)
                               
-                                    <option value="{{ $id }}">{{ $name }}</option>  
+                                    <option value="{{ $id }}"  @if ($post->category_id == $id ) selected @endif>{{ $name }}</option>  
                                 @endforeach
                             </select>
                             @error('category_id')
@@ -41,8 +41,8 @@
                         <div class="col-4">
                             <label for="comment_able">{{ __('Comment Able') }}</label>
                             <select name="comment_able" id="comment_able" value="{{ old('comment_able',$post->comment_able) }}" class="form-control">
-                                <option value="0">{{ __("Yes") }}</option>  
-                                <option value="1">{{ __("No") }}</option>  
+                                <option value="1" @if ($post->comment_able == 1) selected @endif>{{ __("Yes") }}</option>  
+                                <option value="0" @if ($post->comment_able == 0) selected @endif>{{ __("No") }}</option>  
                             </select>
                             @error('comment_able')
                                 <span class="text-danger">{{ $message }}</span>
@@ -51,8 +51,8 @@
                         <div class="col-4">
                             <label for="status">{{ __('Comment Able') }}</label>
                             <select name="status" id="status" value="{{ old('status',$post->status) }}" class="form-control"  aria-modal="true">
-                                <option value="1">{{ __("Active") }}</option>  
-                                <option value="0">{{ __("Inactive") }}</option>  
+                                <option value="1" @if ($post->status == 1) selected @endif>{{ __("Active") }}</option>  
+                                <option value="0" @if ($post->status == 0) selected @endif>{{ __("Inactive") }}</option>  
                             </select>
                             @error('status')
                                 <span class="text-danger">{{ $message }}</span>
@@ -108,11 +108,13 @@
 
     $("#post-images").fileinput(
         {
-            theme: 'fa',
-            allowedFileExtensions: ['jpg', 'png', 'gif'],
-            overwriteInitial: true,
-            maxFileSize:2000,
-            maxFilesNum: 10,
+            theme: "fa",
+                maxFileCount: 5,
+                allowedFileTypes: ['image'],
+                showCancel: true,
+                showRemove: false,
+                showUpload: false,
+                overwriteInitial: false,
             initialPreview:[
                 @if($post->media->count()>0)
                     @foreach ($post->media as $media)

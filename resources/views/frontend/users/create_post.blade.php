@@ -113,11 +113,13 @@
 
     $("#post-images").fileinput(
         {
-            theme: 'fa',
-            allowedFileExtensions: ['jpg', 'png', 'gif'],
-            overwriteInitial: false,
-            maxFileSize:2000,
-            maxFilesNum: 10,
+            theme: "fa",
+                maxFileCount: 5,
+                allowedFileTypes: ['image'],
+                showCancel: true,
+                showRemove: false,
+                showUpload: false,
+                overwriteInitial: false,
         }
     );
 </script>
