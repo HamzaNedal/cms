@@ -88,4 +88,8 @@ Route::group(['prefix'=>'user','as'=>'user.','middleware'=>"auth"],function(){
     Route::get('/comments/{id}/edit',[UserController::class,'edit_comment'])->name('comment.edit');
     Route::post('/comments/{comment:id}/update',[UserController::class,'update_comment'])->name('comment.update');
     Route::delete('/comments/{comment:id}/destroy',[UserController::class,'destroy_comment'])->name('comment.destroy');
+    Route::get('/edit-info',[UserController::class,'edit_info'])->name('edit_info');
+    Route::post('/edit-info',[UserController::class,'update_info'])->name('update_info');
+    Route::post('/edit-password',[UserController::class,'update_password'])->name('update_password');
+
 });

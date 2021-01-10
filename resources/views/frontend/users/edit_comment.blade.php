@@ -39,6 +39,18 @@
                                     <span class="text-danger">{{ $message }}</span>
                                 @enderror
                                 </div>
+
+                                <div class="input__box website one--third">
+                                    <label>Status</label>
+                                    <select name="status" id="status" value="{{ old('status') }}" class="form-control">
+                                        <option value="1" @if ($comment->status == 1) selected @endif>{{ __("Active") }}</option>  
+                                        <option value="0" @if ($comment->status == 0) selected @endif>{{ __("Inactive") }}</option>  
+                                    </select>
+                                    @error('url')
+                                    <span class="text-danger">{{ $message }}</span>
+                                @enderror
+                                </div>
+                                
                             </div>
                             <div class="submite__btn input__box  one--third">
                                 <input type="submit" value="Post Comment">
