@@ -8,6 +8,7 @@ use App\Models\Comment;
 use App\Models\Contact;
 use App\Models\Post;
 use App\Models\User;
+use App\Notifications\NewCommentForPostOwnerNotify;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Stevebauman\Purify\Facades\Purify;
@@ -31,13 +32,13 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $posts = Post::with(['category', 'user', 'media'])
+        $posts = Post::with(['user', 'media'])
             ->whereHas('category', function ($query) {
-                $query->whereStatus(1);
+                $query->active();
             })->whereHas('user', function ($query) {
-                $query->whereStatus(1);
+                $query->active();
             })
-            ->wherePostType('post')->whereStatus(1)->orderBy('id', 'desc')->paginate(5);
+            ->post()->active()->descById()->paginate(5);
         return view('frontend.index', compact('posts'));
     }
 
@@ -45,14 +46,14 @@ class HomeController extends Controller
     public function show_post($slug)
     {
         $post = Post::with(['category', 'user', 'media', 'approved_comments'])
-            ->whereStatus(1)
+            ->active()
             ->wherePostType('post')
             ->whereSlug($slug)
             ->whereHas('category', function ($query) {
-                $query->whereStatus(1);
+                $query->active();
             })
             ->whereHas('user', function ($query) {
-                $query->whereStatus(1);
+                $query->active();
             })
             ->orWhereHas('approved_comments', function ($query) {
                 $query->orderBy('created_at','desc');
@@ -66,10 +67,10 @@ class HomeController extends Controller
     {
         $page = Post::with(['user'])
             ->whereHas('user', function ($query) {
-                $query->whereStatus(1);
+                $query->active();
             })
             ->wherePostType('page')
-            ->whereStatus(1)
+            ->active()
             ->whereSlug($slug)
             ->first();
 
@@ -100,10 +101,10 @@ class HomeController extends Controller
             $data['user_id']        = $userId;
 
             $comment = $post->comments()->create($data);
-
-            // if (auth()->guest() || auth()->id() != $post->user_id) {
-            //     $post->user->notify(new NewCommentForPostOwnerNotify($comment));
-            // }
+            // dd($comment);
+            if (auth()->guest() || auth()->id() != $post->user_id) {
+                $post->user->notify(new NewCommentForPostOwnerNotify($comment));
+            }
 
             // User::whereHas('roles', function ($query) {
             //     $query->whereIn('name', ['admin', 'editor']);
@@ -161,10 +162,10 @@ class HomeController extends Controller
 
         $posts = Post::with(['media', 'user'])
             ->whereHas('category', function ($query) {
-                $query->whereStatus(1);
+                $query->active();
             })
             ->whereHas('user', function ($query) {
-                $query->whereStatus(1);
+                $query->active();
             });
           
         if ($keyword != null) {
@@ -179,11 +180,10 @@ class HomeController extends Controller
 
     public function category(Category $category){
      
-        // $category = $category->whereStatus(1)->first()->id;
+        // $category = $category->active()->first()->id;
 
         if ($category->status == 1) {
-            $posts = Post::with(['media','user','category'])
-                     ->withCount('approved_comments')
+            $posts = Post::with(['media','user'])
                      ->whereCategoryId($category->id)
                      ->post()
                      ->active()

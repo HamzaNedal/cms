@@ -18,6 +18,7 @@
         <h3 class="widget-title">Recent Posts</h3>
         <div class="recent-posts">
             <ul>
+               
                 @foreach ($recent_posts as $post)
                 <li>
                     <div class="post-wrapper d-flex">

@@ -21,7 +21,7 @@
 								<li class="drop"><a href="javascript:void(0)">Blog</a>
 									<div class="megamenu dropdown">
 										<ul class="item item01">
-											@forelse ($categories as $category)
+											@forelse ($recent_categories as $category)
 												<li><a href="{{ route('category.posts',$category->slug) }}">{{ $category->name }}</a></li>
 											@empty
 												<li><a href="javascript:void(0)"></a></li>
@@ -37,28 +37,8 @@
 					<div class="col-md-8 col-sm-8 col-5 col-lg-2">
 						<ul class="header__sidebar__right d-flex justify-content-end align-items-center">
 							<li class="shop_search" style="padding-right: 26px;"><a class="search__active" href="#"></a></li>
-							<li class="shopcart" ><a class="cartbox_active" href="#"><span class="product_qun">3</span></a>
-								<!-- Start Shopping Cart -->
-								<div class="block-minicart minicart__active">
-									<div class="minicart-content-wrapper">
-										<div class="single__items">
-											<div class="miniproduct">
-												<div class="item01 d-flex">
-													<div class="thumb">
-														<a href="product-details.html"><img src="{{ asset('frontend') }}/images/blog/sm-img/1.jpg" alt="product images"></a>
-													</div>
-													<div class="content">
-														<h6><a href="product-details.html">Voyage Yoga Bag</a></h6>
-													
-													</div>
-												</div>
-
-											</div>
-										</div>
-									</div>
-								</div>
-								<!-- End Shopping Cart -->
-							</li>
+							<user-notifications></user-notifications>
+							
 							
 							<li class="setting__bar__icon"><a class="setting__active" href="#"></a>
 								<div class="searchbar__content setting__block">
@@ -118,7 +98,7 @@
 								<li><a href="{{ route('pages.show','our-vision') }}">Our vision</a></li>
 								<li><a href="{{ route('home') }}">Blog</a>
 									<ul>
-									@forelse ($categories as $category)
+									@forelse ($recent_categories as $category)
 										<li><a href="javascript:void(0)">{{ $category->name }}</a></li>
 									@empty
 										<li><a href="javascript:void(0)"></a></li>

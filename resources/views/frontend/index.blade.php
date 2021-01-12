@@ -9,7 +9,7 @@
                 <div class="col-lg-9 col-12">
                     <div class="blog-page">
                         <div class="page__header">
-                            <h2>Category Archives: All</h2>
+                            <h2 style="Text-Transform:capitalize !important; ">Category : {{  request()->segment(count(request()->segments())) ? str_replace('-',' ',request()->segment(count(request()->segments()))): 'all'  }}</h2>
                         </div>
                         <!-- Start Single Post -->
                        

@@ -6,6 +6,7 @@
 
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
+    <meta name="user_id" content="{{ auth()->check() ? auth()->id() : '' }}">
 
     <title>{{ config('app.name', 'Laravel') }}</title>
 
@@ -20,7 +21,7 @@
 	<link href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900" rel="stylesheet"> 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
-    <link rel="stylesheet" href="{{ asset('/frontend') }}/css/bootstrap.min.css">
+    {{-- <link rel="stylesheet" href="{{ asset('/frontend') }}/css/bootstrap.min.css"> --}}
 	<link rel="stylesheet" href="{{ asset('/frontend') }}/css/plugins.css">
     <link rel="stylesheet" href="{{ asset('/frontend') }}/css/style.css">
     <link rel="stylesheet" href="{{ asset('/frontend') }}/css/custom.css">
@@ -94,11 +95,15 @@
         </div>
     </div>
         <!-- JS Files -->
-        {{-- <script src="{{ asset('js/app.js') }}" defer></script> --}}
-        <script src="https://code.jquery.com/jquery-3.5.1.min.js" crossorigin="anonymous"></script>
-        <script src="{{ asset('frontend') }}/js/vendor/modernizr-3.5.0.min.js"></script>
+       
+        <script src="{{ asset('js/app.js') }}" ></script>
+        {{-- <script src="https://code.jquery.com/jquery-3.5.1.min.js" crossorigin="anonymous"></script> --}}
+        {{-- <script src="{{ asset('frontend') }}/js/vendor/modernizr-3.5.0.min.js"></script> --}}
         <script src="{{ asset('frontend') }}/js/plugins.js"></script>
         <script src="{{ asset('frontend') }}/js/active.js"></script>
+       
+
+
         @stack('js')
         @php
             $renderer = Debugbar::getJavascriptRenderer();

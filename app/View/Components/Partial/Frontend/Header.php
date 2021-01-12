@@ -2,13 +2,14 @@
 
 namespace App\View\Components\Partial\Frontend;
 
-use App\Helper\CategorySingleton;
-use App\Models\Category;
 use App\Models\Page;
+use App\Traits\CacheData;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\View\Component;
 
 class Header extends Component
 {
+    use CacheData;
     /**
      * Create a new component instance.
      *
@@ -16,6 +17,7 @@ class Header extends Component
      */
     public function __construct()
     {
+
     }
 
     /**
@@ -25,9 +27,17 @@ class Header extends Component
      */
     public function render()
     {
-        $categories = Category::whereStatus(1)->get();
-        $pages = Page::isPage()->get();
-        return view('components.partial.frontend.header', compact('categories', 'pages'));
+        // $categories = Category::whereStatus(1)->get();
+        if(!Cache::has('pages')){
+            $pages = Page::isPage()->get();
+            Cache::remember('pages', 3600, function ()use($pages) {
+                return $pages;
+            });
+        }
+       
+        $recent_categories = $this->recent_categories();
+        $pages = Cache::get('pages');
+        return view('components.partial.frontend.header', compact('pages','recent_categories'));
     }
 
 

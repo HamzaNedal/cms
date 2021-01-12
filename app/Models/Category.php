@@ -25,4 +25,12 @@ class Category extends Model
     {
         return $this->hasMany(Post::class);
     }
+    public function scopeActive($query)
+    {
+        return $query->where('status', 1);
+    }
+    public function scopeDescById($query)
+    {
+        return $query->orderBy('id','desc');
+    }
 }

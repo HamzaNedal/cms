@@ -2,7 +2,6 @@
 
 use App\Http\Controllers\Backend\Auth\ForgotPasswordController as AuthForgotPasswordController;
 use App\Http\Controllers\Backend\Auth\LoginController as AuthLoginController;
-use App\Http\Controllers\Backend\Auth\RegisterController as AuthRegisterController;
 use App\Http\Controllers\Backend\Auth\ResetPasswordController as AuthResetPasswordController;
 use App\Http\Controllers\Backend\Auth\VerificationController as AuthVerificationController;
 use App\Http\Controllers\Frontend\Auth\ForgotPasswordController;
@@ -11,9 +10,8 @@ use App\Http\Controllers\Frontend\Auth\RegisterController;
 use App\Http\Controllers\Frontend\Auth\ResetPasswordController;
 use App\Http\Controllers\Frontend\Auth\VerificationController;
 use App\Http\Controllers\Frontend\HomeController;
+use App\Http\Controllers\Frontend\NotificationController;
 use App\Http\Controllers\Frontend\UserController;
-use App\Http\Frontend\Controllers\IndexController;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -77,6 +75,7 @@ Route::get('/archive/{date}',[HomeController::class,'archive'])->name('archive.p
 Route::get('/author/{user:username}',[HomeController::class,'author'])->name('author.posts');
 
 Route::group(['prefix'=>'user','as'=>'user.','middleware'=>"auth"],function(){
+    
     Route::get('/dashboard',[UserController::class,'index'])->name('dashboard');
     Route::get('/create-post',[UserController::class,'create_post'])->name('create.post');
     Route::post('/create-post',[UserController::class,'store_post'])->name('store.post');
@@ -91,5 +90,7 @@ Route::group(['prefix'=>'user','as'=>'user.','middleware'=>"auth"],function(){
     Route::get('/edit-info',[UserController::class,'edit_info'])->name('edit_info');
     Route::post('/edit-info',[UserController::class,'update_info'])->name('update_info');
     Route::post('/edit-password',[UserController::class,'update_password'])->name('update_password');
-
+    Route::any('/notifications/get',[NotificationController::class,'getNotifications']);
+    Route::any('/notifications/read',[NotificationController::class,'markAsRead']);
+    Route::any('/notifications/read{id}',[NotificationController::class,'markAsReadAndRedirect']);
 });
