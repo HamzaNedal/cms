@@ -4,6 +4,14 @@ use App\Http\Controllers\Backend\Auth\ForgotPasswordController as AuthForgotPass
 use App\Http\Controllers\Backend\Auth\LoginController as AuthLoginController;
 use App\Http\Controllers\Backend\Auth\ResetPasswordController as AuthResetPasswordController;
 use App\Http\Controllers\Backend\Auth\VerificationController as AuthVerificationController;
+use App\Http\Controllers\Backend\ContactUsController;
+use App\Http\Controllers\Backend\HomeController as BackendHomeController;
+use App\Http\Controllers\Backend\PagesController;
+use App\Http\Controllers\Backend\PostCategoriesController;
+use App\Http\Controllers\Backend\PostCommentsController;
+use App\Http\Controllers\Backend\PostsController;
+use App\Http\Controllers\Backend\SettingsController;
+use App\Http\Controllers\Backend\UsersController;
 use App\Http\Controllers\Frontend\Auth\ForgotPasswordController;
 use App\Http\Controllers\Frontend\Auth\LoginController;
 use App\Http\Controllers\Frontend\Auth\RegisterController;
@@ -46,7 +54,8 @@ Route::post('email/resend', [VerificationController::class, 'resend'])->name('ve
 
 
 
-Route::group(['prefix'=>'admin','as'=>'admin.'],function(){
+Route::group(['prefix' => 'admin', 'as' => 'admin.'], function () {
+
     Route::get('/login', [AuthLoginController::class, 'showLoginForm'])->name('show_login_form');
     Route::post('login', [AuthLoginController::class, 'login'])->name('login');
     Route::post('logout', [AuthLoginController::class, 'logout'])->name('logout');
@@ -59,38 +68,56 @@ Route::group(['prefix'=>'admin','as'=>'admin.'],function(){
     Route::get('email/verify', [AuthVerificationController::class, 'show'])->name('verification.notice');
     Route::get('/email/verify/{id}/{hash}', [AuthVerificationController::class, 'verify'])->name('verification.verify');
     Route::post('email/resend', [AuthVerificationController::class, 'resend'])->name('verification.resend');
+
+    Route::group(['middleware' => ['roles', 'role:admin|editor']], function () {
+
+        Route::get('/', [BackendHomeController::class, 'index'])->name('home');
+        Route::get('/index', [BackendHomeController::class, 'index'])->name('index');
+        Route::get('/posts-datatable', [PostsController::class, 'datatable'])->name('posts.datatable');
+
+        Route::resources([
+            'posts' => PostsController::class,
+            'pages' => PagesController::class,
+            'post_comments' => PostCommentsController::class,
+            'post_categories' => PostCategoriesController::class,
+            'users' => UsersController::class,
+            'contact_us' => ContactUsController::class,
+            'settings' => SettingsController::class,
+        ]);
+        Route::post('/delete-post-media/{media_id}', [PostsController::class, 'destroy_post_media'])->name('post.media.destroy');
+    });
 });
 
 
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
-Route::get('/contact-us',[HomeController::class,'contact_us'])->name('contact');
-Route::post('/contact-us',[HomeController::class,'store_contact_us'])->name('store.contact');
-Route::get('/{page_slug}',[HomeController::class,'show_page'])->name('pages.show');
-Route::get('/post/{post}',[HomeController::class,'show_post'])->name('posts.show');
-Route::post('/{post:slug}',[HomeController::class,'store_comment'])->name('add.comment');
-Route::get('/posts/search',[HomeController::class,'search'])->name('posts.search');
-Route::get('/category/{category:slug}',[HomeController::class,'category'])->name('category.posts');
-Route::get('/archive/{date}',[HomeController::class,'archive'])->name('archive.posts');
-Route::get('/author/{user:username}',[HomeController::class,'author'])->name('author.posts');
+Route::get('/contact-us', [HomeController::class, 'contact_us'])->name('contact');
+Route::post('/contact-us', [HomeController::class, 'store_contact_us'])->name('store.contact');
+Route::get('/{page_slug}', [HomeController::class, 'show_page'])->name('pages.show');
+Route::get('/post/{post}', [HomeController::class, 'show_post'])->name('posts.show');
+Route::post('/{post:slug}', [HomeController::class, 'store_comment'])->name('add.comment');
+Route::get('/posts/search', [HomeController::class, 'search'])->name('posts.search');
+Route::get('/category/{category:slug}', [HomeController::class, 'category'])->name('category.posts');
+Route::get('/archive/{date}', [HomeController::class, 'archive'])->name('archive.posts');
+Route::get('/author/{user:username}', [HomeController::class, 'author'])->name('author.posts');
 
-Route::group(['prefix'=>'user','as'=>'user.','middleware'=>"auth"],function(){
-    
-    Route::get('/dashboard',[UserController::class,'index'])->name('dashboard');
-    Route::get('/create-post',[UserController::class,'create_post'])->name('create.post');
-    Route::post('/create-post',[UserController::class,'store_post'])->name('store.post');
-    Route::get('/edit-post/{post:slug}',[UserController::class,'edit_post'])->name('edit.post');
-    Route::post('/edit-post/{post:slug}',[UserController::class,'update_post'])->name('update.post');
-    Route::delete('/delete-post/{post:slug}',[UserController::class,'destroy_post'])->name('destroy.post');
-    Route::post('/delete-post-media/{media_id}',[UserController::class,'destroy_post_media'])->name('post.media.destroy');
-    Route::get('/comments',[UserController::class,'show_comments'])->name('comments');
-    Route::get('/comments/{id}/edit',[UserController::class,'edit_comment'])->name('comment.edit');
-    Route::post('/comments/{comment:id}/update',[UserController::class,'update_comment'])->name('comment.update');
-    Route::delete('/comments/{comment:id}/destroy',[UserController::class,'destroy_comment'])->name('comment.destroy');
-    Route::get('/edit-info',[UserController::class,'edit_info'])->name('edit_info');
-    Route::post('/edit-info',[UserController::class,'update_info'])->name('update_info');
-    Route::post('/edit-password',[UserController::class,'update_password'])->name('update_password');
-    Route::any('/notifications/get',[NotificationController::class,'getNotifications']);
-    Route::any('/notifications/read',[NotificationController::class,'markAsRead']);
-    Route::any('/notifications/read{id}',[NotificationController::class,'markAsReadAndRedirect']);
+Route::group(['prefix' => 'user', 'as' => 'user.', 'middleware' => "auth"], function () {
+
+    Route::get('/dashboard', [UserController::class, 'index'])->name('dashboard');
+    Route::get('/create-post', [UserController::class, 'create_post'])->name('create.post');
+    Route::post('/create-post', [UserController::class, 'store_post'])->name('store.post');
+    Route::get('/edit-post/{post:slug}', [UserController::class, 'edit_post'])->name('edit.post');
+    Route::post('/edit-post/{post:slug}', [UserController::class, 'update_post'])->name('update.post');
+    Route::delete('/delete-post/{post:slug}', [UserController::class, 'destroy_post'])->name('destroy.post');
+    Route::post('/delete-post-media/{media_id}', [UserController::class, 'destroy_post_media'])->name('post.media.destroy');
+    Route::get('/comments', [UserController::class, 'show_comments'])->name('comments');
+    Route::get('/comments/{id}/edit', [UserController::class, 'edit_comment'])->name('comment.edit');
+    Route::post('/comments/{comment:id}', [UserController::class, 'update_comment'])->name('comment.update');
+    Route::delete('/comments/{comment:id}', [UserController::class, 'destroy_comment'])->name('comment.destroy');
+    Route::get('/edit-info', [UserController::class, 'edit_info'])->name('edit_info');
+    Route::post('/edit-info', [UserController::class, 'update_info'])->name('update_info');
+    Route::post('/edit-password', [UserController::class, 'update_password'])->name('update_password');
+    Route::any('/notifications/get', [NotificationController::class, 'getNotifications']);
+    Route::any('/notifications/read', [NotificationController::class, 'markAsRead']);
+    Route::any('/notifications/read{id}', [NotificationController::class, 'markAsReadAndRedirect']);
 });

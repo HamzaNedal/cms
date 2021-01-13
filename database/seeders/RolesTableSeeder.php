@@ -31,7 +31,7 @@ class RolesTableSeeder extends Seeder
             'status' => '1',
         ]);
 
-        $admin->attachRole($editorRole);
+        $admin->attachRole($adminRole);
 
         $editor = User::create([
             'name' => 'Editor',
@@ -43,7 +43,7 @@ class RolesTableSeeder extends Seeder
             'status' => '1',
         ]);
 
-        $editor->attachRole($adminRole);
+        $editor->attachRole($editorRole);
 
         $user1 = User::create([
             'name' => 'user1',

@@ -18,7 +18,7 @@
                             <div class="thumb">
                                 <a href="{{ route('posts.show',$post->slug )}}">
                                     @if ($post->media->count()>0)
-                                        <img src="{{ asset('frontend/posts',$post->media->first()->file_name) }}" alt="blog images">
+                                        <img src="{{ asset('assets/posts/'.$post->media->first()->file_name) }}" alt="blog images">
                                         @else
                                         <img src="{{ asset('frontend') }}/images/blog/blog-3/1.jpg" alt="blog images">
                                     @endif

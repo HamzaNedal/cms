@@ -7,11 +7,12 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Nicolaslopezj\Searchable\SearchableTrait;
+
 class Post extends Model
 {
-    use HasFactory,SoftDeletes,Sluggable, SearchableTrait;
-    protected $fillable = ['title','description','category_id','comment_able','status','slug','post_type','user_id'];
-    public function sluggable() : array
+    use HasFactory, SoftDeletes, Sluggable, SearchableTrait;
+    protected $fillable = ['title', 'description', 'category_id', 'comment_able', 'status', 'slug', 'post_type', 'user_id'];
+    public function sluggable(): array
     {
         return [
             'slug' => [
@@ -28,8 +29,8 @@ class Post extends Model
          * @var array
          */
         'columns' => [
-            'posts.title'=>10,
-            'posts.description'=>10,
+            'posts.title' => 10,
+            'posts.description' => 10,
         ]
     ];
     public function scopePost($query)
@@ -38,7 +39,7 @@ class Post extends Model
     }
     public function scopeDescById($query)
     {
-        return $query->orderBy('id','desc');
+        return $query->orderBy('id', 'desc');
     }
     public function scopeActive($query)
     {
@@ -62,9 +63,14 @@ class Post extends Model
     {
         return $this->hasMany(Comment::class)->whereStatus(1);
     }
-  
+
     public function media()
     {
-        return $this->hasMany(PostMedia::class,'post_id');
+        return $this->hasMany(PostMedia::class, 'post_id');
+    }
+
+    public function status()
+    {
+        return $this->status == 1 ?  __('Active') : __('Inactive');
     }
 }

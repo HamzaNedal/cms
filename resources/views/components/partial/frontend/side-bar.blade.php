@@ -23,7 +23,13 @@
                 <li>
                     <div class="post-wrapper d-flex">
                         <div class="thumb">
-                            <a href="{{ route('posts.show',$post->slug) }}"><img src="{{ asset('frontend') }}/images/blog/sm-img/1.jpg" alt="blog images"></a>
+                            <a href="{{ route('posts.show',$post->slug) }}">
+                                @if ($post->media->count()>0)
+                                    <img src="{{ asset('assets/posts/'.$post->media->first()->file_name) }}" alt="blog images">
+                                @else
+                                    <img src="{{ asset('frontend') }}/images/blog/sm-img/1.jpg" alt="blog images">
+                                @endif
+                            </a>
                         </div>
                         <div class="content">
                             <h4><a href="{{ route('posts.show',$post->slug) }}">{{ Str::limit($post->title, 20, '...') }}</a></h4>

@@ -60,7 +60,9 @@ class HomeController extends Controller
             })
             ->whereSlug($slug)
             ->first();
-
+            if(!$post){
+                abort(404);
+           }
         return view('frontend.post', compact('post'));
     }
     public function show_page($slug)
@@ -73,8 +75,10 @@ class HomeController extends Controller
             ->active()
             ->whereSlug($slug)
             ->first();
-
-        return view('frontend.page', compact('page'));
+           if(!$page){
+                abort(404);
+           }
+           return view('frontend.page', compact('page'));
     }
     public function store_comment(Request $request, Post $post)
     {

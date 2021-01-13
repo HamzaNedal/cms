@@ -30,4 +30,8 @@ class Comment extends Model
     {
         return $query->orderBy('id','desc');
     }
+    public function status()
+    {
+        return $this->status == 1 ?  __('Active') : __('Inactive');
+    }
 }

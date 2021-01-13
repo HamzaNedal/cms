@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Permission;
 use Illuminate\Http\Request;
 use Intervention\Image\Facades\Image;
 function get_gravatar( $email, $s = 80, $d = 'mp', $r = 'g', $img = false, $atts = array() ) {
@@ -34,4 +35,27 @@ function store_image_for_posts($post,Request $request){
         ]);
         $i++;
     }
+}
+
+function getParentShowOf($param){
+    $replace_admin_to_empty_from_paramter = str_replace('admin.','',$param);
+    $perm = Permission::where('as',$replace_admin_to_empty_from_paramter)->first();
+    return $perm ? $perm->parent_show : $replace_admin_to_empty_from_paramter;
+}
+
+function getParentOf($param){
+    $replace_admin_to_empty_from_paramter = str_replace('admin.','',$param);
+    $perm = Permission::where('as',$replace_admin_to_empty_from_paramter)->first();
+    return $perm ? $perm->parent : $replace_admin_to_empty_from_paramter;
+}
+
+function getParentIdOf($param){
+    $replace_admin_to_empty_from_paramter = str_replace('admin.','',$param);
+    $perm = Permission::where('as',$replace_admin_to_empty_from_paramter)->first();
+    return $perm ? $perm->id : $replace_admin_to_empty_from_paramter;
+}
+
+function getIdMenutOf($param){
+    $perm = Permission::where('id',$param)->first();
+    return $perm ? $perm->parent_show : null;
 }

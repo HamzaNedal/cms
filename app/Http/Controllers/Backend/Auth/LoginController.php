@@ -37,6 +37,7 @@ class LoginController extends Controller
      */
     public function __construct()
     {
+       
         $this->middleware('guest')->except('logout');
     }
     public function showLoginForm()
@@ -50,8 +51,10 @@ class LoginController extends Controller
     }
     protected function authenticated(Request $request, $user)
     {
+       
         if($user->status = 0){
             Auth::logout();
         }
+        return redirect()->route('admin.home');
     }
 }

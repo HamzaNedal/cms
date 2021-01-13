@@ -56076,13 +56076,13 @@ if (token) {
 window.Pusher = __webpack_require__(/*! pusher-js */ "./node_modules/pusher-js/dist/web/pusher.js");
 window.Echo = new laravel_echo__WEBPACK_IMPORTED_MODULE_0__["default"]({
   broadcaster: 'pusher',
-  key: "b551861de5fbd39ea148",
-  cluster: "ap2",
+  key: "lol",
+  cluster: "eu",
   forceTLS: false,
   wsHost: window.location.hostname,
-  wsPort: 6006,
-  // wssPort: 6001,
-  disableStats: true // encrypted: true,
+  wsPort: 6001,
+  disableStats: true // encrypted: false,
+  // enabledTransports: ['ws', 'wss'],
 
 });
 

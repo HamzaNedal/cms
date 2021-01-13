@@ -40,8 +40,8 @@
                         <div class="col-4">
                             <label for="comment_able">{{ __('Comment Able') }}</label>
                             <select name="comment_able" id="comment_able" value="{{ old('comment_able') }}" class="form-control">
-                                <option value="0">{{ __("Yes") }}</option>  
-                                <option value="1">{{ __("No") }}</option>  
+                                <option value="1">{{ __("Yes") }}</option>  
+                                <option value="0">{{ __("No") }}</option>  
                             </select>
                             @error('comment_able')
                                 <span class="text-danger">{{ $message }}</span>

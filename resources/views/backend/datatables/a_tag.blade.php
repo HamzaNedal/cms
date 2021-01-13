@@ -1,0 +1,1 @@
+<a href="{{ route("admin.$model->route.show",$model->id) }}">{{ $model->title }}</a>

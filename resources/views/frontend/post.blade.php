@@ -8,8 +8,11 @@
                 <div class="blog-details content">
                     <article class="blog-post-details">
                         <div class="post-thumbnail">
-                            
+                            @if ($post->media->count()>0)
+                            <img src="{{ asset('assets/posts/'.$post->media->first()->file_name) }}" alt="blog images">
+                        @else
                             <img src="{{ asset('frontend') }}/images/blog/big-img/1.jpg" alt="blog images">
+                        @endif         
                         </div>
                         <div class="post_wrapper">
                             <div class="post_header">
@@ -21,7 +24,7 @@
                                 </ul>
                             </div>
                             <div class="post_content">
-                                <p>{{ $post->description }}</p>
+                                <p class="">{!! $post->description !!}</p>
 
                             </div>
                             <ul class="blog_meta">
