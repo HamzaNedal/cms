@@ -10,14 +10,14 @@
     <!-- DataTales Example -->
     <div class="card shadow mb-4">
         <div class="card-header py-3 d-flex">
-            <h6 class="m-0 font-weight-bold text-primary">Posts</h6>
+            <h6 class="m-0 font-weight-bold text-primary">Comments</h6>
             <div class="ml-auto">
-                <a href="{{ route('admin.posts.create') }}" class="btn btn-primary">
+                {{-- <a href="{{ route('admin.post_comments.create') }}" class="btn btn-primary">
                     <span class="icon text-white-50">
                         <i class="fa fa-plus"></i>
                     </span>
-                    <span class="text">Add new post</span>
-                </a>
+                    <span class="text">Add new Comment</span>
+                </a> --}}
             </div>
         </div>
         <div class="card-body">
@@ -25,11 +25,11 @@
                 <table class="table table-bordered"  width="100%" cellspacing="0" id="table">
                     <thead>
                         <tr>
-                            <th>Title</th>
-                            <th>Comments</th>
+                            <th>Image</th>
+                            <th>Auther</th>
+                            <th>Comment</th>
                             <th>Status</th>
-                            <th>Category</th>
-                            <th>User</th>
+                            <th>Post</th>
                             <th>Created at</th>
                             <th class="text-center" style="width:30px">Actions</th>
                         </tr>
@@ -53,13 +53,13 @@
               order:[5,'desc'],
               processing: true,
               serverSide: true,
-              ajax: '{!! route('admin.posts.datatable') !!}',
+              ajax: '{!! route('admin.post_comments.datatable') !!}',
               columns: [
-                  { data: 'title'  ,name: 'id'} ,
-                  { data: 'comments' ,name: 'comment_able'} ,
+                  { data: 'image'  ,name: 'image'} ,
+                  { data: 'name' ,name: 'name'} ,
+                  { data: 'comment',name: 'comment'} ,
                   { data: 'status',name: 'status'} ,
-                  { data: 'category',name: 'category_id'} ,
-                  { data: 'user',name: 'user_id'} ,
+                  { data: 'post',name: 'post'} ,
                   { data: 'created_at',name: 'created_at'} ,
                   { data: 'actions',  orderable: false, searchable: false},
                  

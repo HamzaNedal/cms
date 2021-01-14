@@ -10,14 +10,8 @@
     <!-- DataTales Example -->
     <div class="card shadow mb-4">
         <div class="card-header py-3 d-flex">
-            <h6 class="m-0 font-weight-bold text-primary">Posts</h6>
+            <h6 class="m-0 font-weight-bold text-primary">Contact Us</h6>
             <div class="ml-auto">
-                <a href="{{ route('admin.posts.create') }}" class="btn btn-primary">
-                    <span class="icon text-white-50">
-                        <i class="fa fa-plus"></i>
-                    </span>
-                    <span class="text">Add new post</span>
-                </a>
             </div>
         </div>
         <div class="card-body">
@@ -25,11 +19,9 @@
                 <table class="table table-bordered"  width="100%" cellspacing="0" id="table">
                     <thead>
                         <tr>
-                            <th>Title</th>
-                            <th>Comments</th>
+                            <th>From</th>
+                            <th>title</th>
                             <th>Status</th>
-                            <th>Category</th>
-                            <th>User</th>
                             <th>Created at</th>
                             <th class="text-center" style="width:30px">Actions</th>
                         </tr>
@@ -50,16 +42,14 @@
         <script src="{{ asset('backend') }}/js/demo/datatables-demo.js"></script>
         <script>
        table =  $('#table').DataTable({
-              order:[5,'desc'],
+              order:[3,'desc'],
               processing: true,
               serverSide: true,
-              ajax: '{!! route('admin.posts.datatable') !!}',
+            ajax: '{!! route('admin.contact_us.datatable') !!}',
               columns: [
-                  { data: 'title'  ,name: 'id'} ,
-                  { data: 'comments' ,name: 'comment_able'} ,
+                  { data: 'name',name: 'name'} ,
+                  { data: 'title'  ,name: 'title'} ,
                   { data: 'status',name: 'status'} ,
-                  { data: 'category',name: 'category_id'} ,
-                  { data: 'user',name: 'user_id'} ,
                   { data: 'created_at',name: 'created_at'} ,
                   { data: 'actions',  orderable: false, searchable: false},
                  

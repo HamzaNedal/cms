@@ -73,7 +73,7 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.'], function () {
 
         Route::get('/', [BackendHomeController::class, 'index'])->name('home');
         Route::get('/index', [BackendHomeController::class, 'index'])->name('index');
-        Route::get('/posts-datatable', [PostsController::class, 'datatable'])->name('posts.datatable');
+       
 
         Route::resources([
             'posts' => PostsController::class,
@@ -84,6 +84,11 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.'], function () {
             'contact_us' => ContactUsController::class,
             'settings' => SettingsController::class,
         ]);
+        Route::get('/posts-datatable', [PostsController::class, 'datatable'])->name('posts.datatable');
+        Route::get('/post-categories-datatable', [PostCategoriesController::class, 'datatable'])->name('post_categories.datatable');
+        Route::get('/post-comments-datatable', [PostCommentsController::class, 'datatable'])->name('post_comments.datatable');
+        Route::get('/pages-datatable', [PagesController::class, 'datatable'])->name('pages.datatable');
+        Route::get('/contact_us-datatable', [ContactUsController::class, 'datatable'])->name('contact_us.datatable');
         Route::post('/delete-post-media/{media_id}', [PostsController::class, 'destroy_post_media'])->name('post.media.destroy');
     });
 });

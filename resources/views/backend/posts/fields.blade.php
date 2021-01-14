@@ -42,7 +42,7 @@
             @enderror
         </div>
         <div class="col-4">
-            <label for="status">{{ __('Comment Able') }}</label>
+            <label for="status">{{ __('Status') }}</label>
             <select name="status" id="status" value="{{ old('status') }}" class="form-control">
                 <option value="1" @if (isset($post->status) && $post->status == 1) selected @endif >{{ __("Active") }}</option>  
                 <option value="0" @if (isset($post->status) && $post->status == 0) selected @endif >{{ __("Inactive") }}</option>  

@@ -25,6 +25,10 @@ class Page extends Model
     {
         $query->where('post_type', 'page');
     }
+    function scopeActive($query)
+    {
+        $query->where('status', 1);
+    }
     public function category()
     {
         return $this->belongsTo(Category::class,'category_id');
@@ -40,5 +44,8 @@ class Page extends Model
         return $this->hasMany(PostMedia::class,'post_id');
     }
 
-    
+    public function status()
+    {
+        return $this->status == 1 ?  __('Active') : __('Inactive');
+    }
 }

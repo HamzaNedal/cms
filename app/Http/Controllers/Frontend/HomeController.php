@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Frontend;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Frontend\CreateCommentRequest;
 use App\Models\Category;
 use App\Models\Comment;
 use App\Models\Contact;
@@ -80,41 +81,19 @@ class HomeController extends Controller
            }
            return view('frontend.page', compact('page'));
     }
-    public function store_comment(Request $request, Post $post)
+    public function store_comment(CreateCommentRequest $request, Post $post)
     {
-        // dd($request->all());
-        $validation = Validator::make($request->all(), [
-            'name'      => 'required',
-            'email'     => 'required|email',
-            'url'       => 'nullable|url',
-            'comment'   => 'required|min:10',
-        ]);
-
-        if ($validation->fails()) {
-            return redirect()->back()->withErrors($validation)->withInput();
-        }
         if ($post->post_type == 'post' && $post->status == 1) {
-
             $userId = auth()->check() ? auth()->id() : null;
-            $data['name']           = $request->name;
-            $data['email']          = $request->email;
-            $data['url']            = $request->url;
-            $data['ip_address']     = $request->ip();
-            $data['comment']        = Purify::clean($request->comment);
-            $data['post_id']        = $post->id;
-            $data['user_id']        = $userId;
+            $request['ip_address']     = $request->ip();
+            $request['comment']        = Purify::clean($request->comment);
+            $request['post_id']        = $post->id;
+            $request['user_id']        = $userId;
 
-            $comment = $post->comments()->create($data);
-            // dd($comment);
+            $comment = $post->comments()->create($request->all());
             if (auth()->guest() || auth()->id() != $post->user_id) {
                 $post->user->notify(new NewCommentForPostOwnerNotify($comment));
             }
-
-            // User::whereHas('roles', function ($query) {
-            //     $query->whereIn('name', ['admin', 'editor']);
-            // })->each(function ($admin, $key) use ($comment) {
-            //     $admin->notify(new NewCommentForAdminNotify($comment));
-            // });
 
             return redirect()->back()->with([
                 'message' => 'Comment added successfully',

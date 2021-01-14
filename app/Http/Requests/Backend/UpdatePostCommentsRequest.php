@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Requests\Frontend;
+namespace App\Http\Requests\Backend;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class CreateCommentRequest extends FormRequest
+class UpdatePostCommentsRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -13,7 +13,7 @@ class CreateCommentRequest extends FormRequest
      */
     public function authorize()
     {
-        return true;
+        return auth()->user()->ability('admin','update_post_comments');
     }
 
     /**
@@ -28,6 +28,7 @@ class CreateCommentRequest extends FormRequest
             'email'     => 'required|email',
             'url'       => 'nullable|url',
             'comment'   => 'required|min:10',
+            'status'   => 'required|integer|min:0|max:1',
         ];
     }
 }

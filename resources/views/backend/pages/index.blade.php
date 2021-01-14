@@ -10,13 +10,13 @@
     <!-- DataTales Example -->
     <div class="card shadow mb-4">
         <div class="card-header py-3 d-flex">
-            <h6 class="m-0 font-weight-bold text-primary">Posts</h6>
+            <h6 class="m-0 font-weight-bold text-primary">Pages</h6>
             <div class="ml-auto">
-                <a href="{{ route('admin.posts.create') }}" class="btn btn-primary">
+                <a href="{{ route('admin.pages.create') }}" class="btn btn-primary">
                     <span class="icon text-white-50">
                         <i class="fa fa-plus"></i>
                     </span>
-                    <span class="text">Add new post</span>
+                    <span class="text">Add new page</span>
                 </a>
             </div>
         </div>
@@ -26,9 +26,7 @@
                     <thead>
                         <tr>
                             <th>Title</th>
-                            <th>Comments</th>
                             <th>Status</th>
-                            <th>Category</th>
                             <th>User</th>
                             <th>Created at</th>
                             <th class="text-center" style="width:30px">Actions</th>
@@ -50,16 +48,14 @@
         <script src="{{ asset('backend') }}/js/demo/datatables-demo.js"></script>
         <script>
        table =  $('#table').DataTable({
-              order:[5,'desc'],
+              order:[4,'desc'],
               processing: true,
               serverSide: true,
-              ajax: '{!! route('admin.posts.datatable') !!}',
+              ajax: '{!! route('admin.pages.datatable') !!}',
               columns: [
                   { data: 'title'  ,name: 'id'} ,
-                  { data: 'comments' ,name: 'comment_able'} ,
                   { data: 'status',name: 'status'} ,
-                  { data: 'category',name: 'category_id'} ,
-                  { data: 'user',name: 'user_id'} ,
+                  { data: 'username',name: 'user_id'} ,
                   { data: 'created_at',name: 'created_at'} ,
                   { data: 'actions',  orderable: false, searchable: false},
                  

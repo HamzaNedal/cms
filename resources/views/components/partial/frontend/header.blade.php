@@ -18,7 +18,7 @@
 							
 									<li class="drop with--one--item"><a href="{{ route('pages.show',$page->slug) }}">{{ $page->title }}</a>
 									@endforeach
-								<li class="drop"><a href="javascript:void(0)">Blog</a>
+								<li class="drop"><a href="javascript:void(0)">Categories</a>
 									<div class="megamenu dropdown">
 										<ul class="item item01">
 											@forelse ($recent_categories as $category)
@@ -96,7 +96,7 @@
 								<li><a href="{{ route('home') }}">Home</a></li>
 								<li><a href="{{ route('pages.show','about-us') }}">About us</a></li>
 								<li><a href="{{ route('pages.show','our-vision') }}">Our vision</a></li>
-								<li><a href="{{ route('home') }}">Blog</a>
+								<li><a href="{{ route('home') }}">Categories</a>
 									<ul>
 									@forelse ($recent_categories as $category)
 										<li><a href="javascript:void(0)">{{ $category->name }}</a></li>

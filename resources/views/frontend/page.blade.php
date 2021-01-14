@@ -18,7 +18,7 @@
                                 </ul>
                             </div>
                             <div class="post_content">
-                                <p>{{ $page->description }}</p>
+                                <p>{!! $page->description !!}</p>
 
                             </div>
                         </div>

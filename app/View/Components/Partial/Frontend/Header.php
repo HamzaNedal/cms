@@ -29,7 +29,7 @@ class Header extends Component
     {
         // $categories = Category::whereStatus(1)->get();
         if(!Cache::has('pages')){
-            $pages = Page::isPage()->get();
+            $pages = Page::isPage()->active()->get();
             Cache::remember('pages', 3600, function ()use($pages) {
                 return $pages;
             });

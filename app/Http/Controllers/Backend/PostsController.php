@@ -21,6 +21,9 @@ class PostsController extends Controller
      */
     public function index()
     {
+        if (!auth()->user()->ability('admin','manage_posts,show_posts')) {
+            return abort(403);
+        }
         return view('backend.posts.index');
     }
 
@@ -31,6 +34,9 @@ class PostsController extends Controller
      */
     public function create()
     {
+        if (!auth()->user()->ability('admin','create_posts')) {
+            return abort(403);
+        }
         $categories = Category::active()->pluck('name', 'id');
         return view('backend.posts.create', compact('categories'));
     }
@@ -43,6 +49,9 @@ class PostsController extends Controller
      */
     public function store(CreatePostRequest $request)
     {
+        if (!auth()->user()->ability('admin','create_posts')) {
+            return abort(403);
+        }
         $post = auth()->user()->posts()->create($request->all());
         if ($request->images && count($request->images) > 0) {
             store_image_for_posts($post, $request);
@@ -65,10 +74,9 @@ class PostsController extends Controller
     public function show($id)
     {
 
-        // if (!\auth()->user()->ability('admin', 'display_posts')) {
-        //     return redirect('admin/index');
-        // }
-
+        if (!\auth()->user()->ability('admin', 'display_posts')) {
+            return redirect('admin/index');
+        }
         $post = Post::with(['media', 'category', 'user', 'comments'])->whereId($id)->wherePostType('post')->first();
         return view('backend.posts.show', compact('post'));
     }
@@ -81,6 +89,9 @@ class PostsController extends Controller
      */
     public function edit(Post $post)
     {
+        if (!auth()->user()->ability('admin','update_posts')) {
+            return abort(403);
+        }
         $categories = Category::whereStatus(1)->pluck('name', 'id');
         return view('backend.posts.edit', compact('post', 'categories'));
     }
@@ -94,6 +105,9 @@ class PostsController extends Controller
      */
     public function update(CreatePostRequest $request,Post $post)
     {
+        if (!auth()->user()->ability('admin','update_posts')) {
+            return abort(403);
+        }
         $post->update($request->all());
         
         if ($request->images && count($request->images) > 0) {
@@ -114,7 +128,9 @@ class PostsController extends Controller
      */
     public function destroy(Post $post)
     {
-
+        if (!auth()->user()->ability('admin','delete_posts')) {
+            return abort(403);
+        }
         if ($post->media->count() > 0) {
             foreach ($post->media as $media) {
                 if (File::exists('assets/posts/' . $media->file_name)) {
@@ -132,6 +148,9 @@ class PostsController extends Controller
     }
     public function destroy_post_media($media_id)
     {
+        if (!auth()->user()->ability('admin','delete_posts')) {
+            return abort(403);
+        }
         $media = PostMedia::whereId($media_id)->first();
         $media->delete();
         if (File::exists('assets/posts/' . $media->file_name)) {
@@ -145,6 +164,9 @@ class PostsController extends Controller
 
     public function datatable()
     {
+        if (!auth()->user()->ability('admin','manage_posts,show_posts')) {
+            return abort(403);
+        }
         $posts = Post::query();
         return DataTables::of($posts)
             ->editColumn('title', function ($post) {

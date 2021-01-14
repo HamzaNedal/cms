@@ -12,7 +12,7 @@ class Category extends Model
     use HasFactory, Sluggable, SoftDeletes;
 
     protected $guarded = [];
-
+    protected $table= 'categories';
       public function sluggable() :array{
         return [
             'slug' => [
@@ -32,5 +32,9 @@ class Category extends Model
     public function scopeDescById($query)
     {
         return $query->orderBy('id','desc');
+    }
+    public function status()
+    {
+        return $this->status == 1 ?  __('Active') : __('Inactive');
     }
 }
