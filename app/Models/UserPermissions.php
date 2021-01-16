@@ -9,7 +9,7 @@ class UserPermissions extends Model
 {
     use HasFactory;
     protected $guarded = [];
-
+    protected $table ='user_permissions';
     public function permission()
     {
         return $this->belongsToMany(Permission::class, 'id', 'permission_id');

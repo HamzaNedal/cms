@@ -11,6 +11,7 @@ use App\Http\Controllers\Backend\PostCategoriesController;
 use App\Http\Controllers\Backend\PostCommentsController;
 use App\Http\Controllers\Backend\PostsController;
 use App\Http\Controllers\Backend\SettingsController;
+use App\Http\Controllers\Backend\SupervisorsController;
 use App\Http\Controllers\Backend\UsersController;
 use App\Http\Controllers\Frontend\Auth\ForgotPasswordController;
 use App\Http\Controllers\Frontend\Auth\LoginController;
@@ -82,14 +83,19 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.'], function () {
             'post_categories' => PostCategoriesController::class,
             'users' => UsersController::class,
             'contact_us' => ContactUsController::class,
+            'supervisors' => SupervisorsController::class,
             'settings' => SettingsController::class,
         ]);
         Route::get('/posts-datatable', [PostsController::class, 'datatable'])->name('posts.datatable');
+        Route::post('/delete-post-media/{media_id}', [PostsController::class, 'destroy_post_media'])->name('post.media.destroy');
         Route::get('/post-categories-datatable', [PostCategoriesController::class, 'datatable'])->name('post_categories.datatable');
         Route::get('/post-comments-datatable', [PostCommentsController::class, 'datatable'])->name('post_comments.datatable');
         Route::get('/pages-datatable', [PagesController::class, 'datatable'])->name('pages.datatable');
         Route::get('/contact_us-datatable', [ContactUsController::class, 'datatable'])->name('contact_us.datatable');
-        Route::post('/delete-post-media/{media_id}', [PostsController::class, 'destroy_post_media'])->name('post.media.destroy');
+        Route::get('/users-datatable', [UsersController::class, 'datatable'])->name('users.datatable');
+        Route::get('/supervisors-datatable', [SupervisorsController::class, 'datatable'])->name('supervisors.datatable');
+        Route::post('/delete-user-media', [UsersController::class, 'removeImage'])->name('user.media.destroy');
+       
     });
 });
 

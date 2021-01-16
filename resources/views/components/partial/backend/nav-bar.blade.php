@@ -22,7 +22,11 @@
 
             <!-- Topbar Navbar -->
             <ul class="navbar-nav ml-auto">
-
+                <li class="nav-item  no-arrow">
+                    <a class="nav-link" href="{{ route('admin.supervisors.index') }}">
+                             Supervisors
+                    </a>
+                </li>
                 <!-- Nav Item - Search Dropdown (Visible Only XS) -->
                 <li class="nav-item dropdown no-arrow d-sm-none">
                     <a class="nav-link dropdown-toggle" href="#" id="searchDropdown" role="button"
