@@ -25,6 +25,8 @@ class PostResource extends JsonResource
             'category'=> new CategoryResource($this->category),
             'tags'=> TagResource::collection($this->tags),
             'media'=> MediaResource::collection($this->media),
+            'comments'=> $this->comments->count(),
+            'active_comments'=> $this->comments->where('status',1)->count(),
         ];
     }
 }
