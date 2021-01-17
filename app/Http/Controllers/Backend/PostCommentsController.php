@@ -111,21 +111,21 @@ class PostCommentsController extends Controller
         }
         $post_comments = Comment::query();
         return DataTables::of($post_comments)
-        ->addColumn('image', function ($comment) {
-            return "<img src='".get_gravatar($comment->email,50)."' class='img-circle'>";
+        ->addColumn('image', function ($post_comment) {
+            return "<img src='".get_gravatar($post_comment->email,50)."' class='img-circle'>";
         })
         ->addColumn('post', function ($comment) {
             return "<a href='".route("admin.posts.show",$comment->post_id)."'>".$comment->post->title." </a>";
-        })
-        ->editColumn('actions', function ($post_comments) {
-            $post_comments->route = 'post_comments';
-            return view('backend.datatables.actions')->with(['model' => $post_comments]);
         })
         ->editColumn('status', function ($post_comments) {
             return $post_comments->status();
         })
         ->editColumn('created_at', function ($post_comments) {
             return $post_comments->created_at->format('d-m-Y h:i a');
+        })
+        ->editColumn('actions', function ($post_comments) {
+            $post_comments->route = 'post_comments';
+            return view('backend.datatables.actions')->with(['model' => $post_comments]);
         })
         ->rawColumns(['image','post'])
         ->toJson();

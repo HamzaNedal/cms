@@ -21,7 +21,7 @@ class PostsController extends Controller
      */
     public function index()
     {
-        if (!auth()->user()->ability('admin','manage_posts,show_posts')) {
+        if (!auth()->user()->ability('admin', 'manage_posts,show_posts')) {
             return abort(403);
         }
         return view('backend.posts.index');
@@ -34,7 +34,7 @@ class PostsController extends Controller
      */
     public function create()
     {
-        if (!auth()->user()->ability('admin','create_posts')) {
+        if (!auth()->user()->ability('admin', 'create_posts')) {
             return abort(403);
         }
         $categories = Category::active()->pluck('name', 'id');
@@ -49,7 +49,7 @@ class PostsController extends Controller
      */
     public function store(CreatePostRequest $request)
     {
-        if (!auth()->user()->ability('admin','create_posts')) {
+        if (!auth()->user()->ability('admin', 'create_posts')) {
             return abort(403);
         }
         $post = auth()->user()->posts()->create($request->all());
@@ -89,7 +89,7 @@ class PostsController extends Controller
      */
     public function edit(Post $post)
     {
-        if (!auth()->user()->ability('admin','update_posts')) {
+        if (!auth()->user()->ability('admin', 'update_posts')) {
             return abort(403);
         }
         $categories = Category::whereStatus(1)->pluck('name', 'id');
@@ -103,13 +103,13 @@ class PostsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(CreatePostRequest $request,Post $post)
+    public function update(CreatePostRequest $request, Post $post)
     {
-        if (!auth()->user()->ability('admin','update_posts')) {
+        if (!auth()->user()->ability('admin', 'update_posts')) {
             return abort(403);
         }
         $post->update($request->all());
-        
+
         if ($request->images && count($request->images) > 0) {
             store_image_for_posts($post, $request);
         }
@@ -128,7 +128,7 @@ class PostsController extends Controller
      */
     public function destroy(Post $post)
     {
-        if (!auth()->user()->ability('admin','delete_posts')) {
+        if (!auth()->user()->ability('admin', 'delete_posts')) {
             return abort(403);
         }
         if ($post->media->count() > 0) {
@@ -148,7 +148,7 @@ class PostsController extends Controller
     }
     public function destroy_post_media($media_id)
     {
-        if (!auth()->user()->ability('admin','delete_posts')) {
+        if (!auth()->user()->ability('admin', 'delete_posts')) {
             return abort(403);
         }
         $media = PostMedia::whereId($media_id)->first();
@@ -156,29 +156,26 @@ class PostsController extends Controller
         if (File::exists('assets/posts/' . $media->file_name)) {
             unlink('assets/posts/' . $media->file_name);
             return response()
-            ->json(['message' => 'success']);
+                ->json(['message' => 'success']);
         }
         return response()
-              ->json(['message' => 'failed']);
+            ->json(['message' => 'failed']);
     }
 
     public function datatable()
     {
-        if (!auth()->user()->ability('admin','manage_posts,show_posts')) {
+
+        if (!auth()->user()->ability('admin', 'manage_posts,show_posts')) {
             return abort(403);
         }
-        $posts = Post::query();
+
+        $posts = Post::query()->post()->with('category', 'user');
+
         return DataTables::of($posts)
             ->editColumn('title', function ($post) {
                 // $post->route = 'posts';
                 // return  view('backend.datatables.a_tag')->with(['model' => $post]);
-                return "<a href='".route("admin.posts.show",$post->id)."'>$post->title</a>";
-            })
-            ->editColumn('category', function ($post) {
-                return  $post->category->name;
-            })
-            ->editColumn('user', function ($post) {
-                return $post->user->name;
+                return "<a href='" . route("admin.posts.show", $post->id) . "'>$post->title</a>";
             })
             ->editColumn('comments', function ($post) {
                 return $post->comment_able == 1 ? $post->comments->count() : __('Disallow');
@@ -192,7 +189,7 @@ class PostsController extends Controller
             ->editColumn('actions', function ($post) {
                 $post->route = 'posts';
                 return view('backend.datatables.actions')->with(['model' => $post]);
-            })->startsWithSearch()
+            })
             ->rawColumns(['title'])
             ->toJson();
     }

@@ -3,6 +3,7 @@
 namespace Database\Factories;
 
 use App\Models\PostMedia;
+use Faker\Factory as FakerFactory;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 class PostMediaFactory extends Factory
@@ -21,8 +22,11 @@ class PostMediaFactory extends Factory
      */
     public function definition()
     {
+        $faker = FakerFactory::create();
         return [
-            //
+            'file_name' => $faker->image('public/assets/posts',640,480, null, false),
+            'file_type' => '',
+            'file_size' => '',
         ];
     }
 }

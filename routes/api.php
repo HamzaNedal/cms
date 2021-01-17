@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Api\GeneralController;
 use App\Http\Controllers\Backend\Api\ApiController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -18,5 +19,10 @@ use Illuminate\Support\Facades\Route;
 // Route::middleware('auth:api')->get('/user', function (Request $request) {
 //     return $request->user();
 // });
+
+Route::group(['prefix' => 'v1'], function () {
+    Route::get('/get-posts',[GeneralController::class,'get_posts']);
+});
 Route::get('/chart/comments_chart',[ApiController::class,'comments_charts']);
 Route::get('/chart/users_chart',[ApiController::class,'users_charts']);
+

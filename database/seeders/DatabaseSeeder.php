@@ -19,6 +19,8 @@ class DatabaseSeeder extends Seeder
             PermissionTableSeeder::class,
             CategorySeeder::class,
             PostSeeder::class,
+            TagTableSeeder::class,
+            PostsTagsTableSeeder::class,
             PageSeeder::class,
             CommentSeeder::class,
             SettingTableSeeder::class,
