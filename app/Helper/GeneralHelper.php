@@ -3,6 +3,8 @@
 use App\Models\Permission;
 use Illuminate\Http\Request;
 use Intervention\Image\Facades\Image;
+use Spatie\Valuestore\Valuestore;
+
 function get_gravatar( $email, $s = 80, $d = 'mp', $r = 'g', $img = false, $atts = array() ) {
     $url = 'https://www.gravatar.com/avatar/';
     $url .= md5( strtolower( trim( $email ) ) );
@@ -58,4 +60,9 @@ function getParentIdOf($param){
 function getIdMenutOf($param){
     $perm = Permission::where('id',$param)->first();
     return $perm ? $perm->parent_show : null;
+}
+
+function getSettingsOf($key) {
+    $settings = Valuestore::make(config_path('settings.json'));
+    return $settings->get($key);
 }

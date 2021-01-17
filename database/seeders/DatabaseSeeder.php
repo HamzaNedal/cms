@@ -21,6 +21,7 @@ class DatabaseSeeder extends Seeder
             PostSeeder::class,
             PageSeeder::class,
             CommentSeeder::class,
+            SettingTableSeeder::class,
         ]);
     }
 }

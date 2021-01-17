@@ -8,6 +8,7 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <title>{{ config('app.name', 'Laravel') }}</title>
+    <meta name="admin_id" content="{{ auth()->check() ? auth()->id() : '' }}">
 
     <!-- Scripts -->
     {{-- <script src="{{ asset('js/app.js') }}" defer></script> --}}
@@ -23,6 +24,7 @@
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     <link href="{{ asset('backend/') }}/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
     <link href="{{ asset('backend/') }}/css/sb-admin-2.min.css" rel="stylesheet">
+    @livewireStyles
     @stack('css')
 </head>
 <body>
@@ -59,9 +61,8 @@
      <!-- Page level plugins -->
      <script src="{{ asset('backend/') }}/vendor/chart.js/Chart.min.js"></script>
  
-     <!-- Page level custom scripts -->
-     {{-- <script src="{{ asset('backend/') }}/js/demo/chart-area-demo.js"></script> --}}
-     {{-- <script src="{{ asset('backend/') }}/js/demo/chart-pie-demo.js"></script> --}}
+
+     @livewireScripts
     @stack('js')
 </body>
 </html>

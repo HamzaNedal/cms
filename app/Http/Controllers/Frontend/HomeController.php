@@ -9,6 +9,7 @@ use App\Models\Comment;
 use App\Models\Contact;
 use App\Models\Post;
 use App\Models\User;
+use App\Notifications\NewCommentForAdminNotify;
 use App\Notifications\NewCommentForPostOwnerNotify;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
@@ -91,10 +92,14 @@ class HomeController extends Controller
             $request['user_id']        = $userId;
 
             $comment = $post->comments()->create($request->all());
-            if (auth()->guest() || auth()->id() != $post->user_id) {
+            if (auth()->guest() || auth()->id() != $post->user_id && auth()->user()->hasRole(['editor', 'admin'])) {
                 $post->user->notify(new NewCommentForPostOwnerNotify($comment));
             }
-
+            User::whereHas('roles',function($query){
+                $query->whereIn('name',['admin','editor']);
+            })->each(function($admin,$key) use ($comment){
+                $admin->notify(new NewCommentForAdminNotify($comment));
+            });
             return redirect()->back()->with([
                 'message' => 'Comment added successfully',
                 'alert-type' => 'success'

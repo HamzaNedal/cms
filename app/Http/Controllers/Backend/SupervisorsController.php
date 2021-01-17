@@ -94,7 +94,7 @@ class SupervisorsController extends Controller
     {
         
         if (!\auth()->user()->ability('admin', 'update_supervisors')) {
-            return redirect('admin/index');
+            return abort(403);
         }
         $permissions = Permission::pluck('display_name','id');
         $user = $supervisor;
@@ -138,7 +138,7 @@ class SupervisorsController extends Controller
     public function destroy(User $supervisor)
     {
         if (!\auth()->user()->ability('admin', 'delete_supervisors')) {
-            return redirect('admin/index');
+            return abort(403);
         }
 
             if ($supervisor->user_image != '') {

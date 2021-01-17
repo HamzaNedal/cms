@@ -19,36 +19,45 @@
         @foreach ($admin_side_menu as $menu)
             @if(count($menu->appeardChildren) == 0)
             <li class="nav-item {{ $menu->id == getParentShowOf($current_page) ? 'active' : '' }}">
+                @if (auth()->user()->ability('admin', [$menu->name]))
                 <a class="nav-link" href="{{ route('admin.'.$menu->as) }}">
                     <i class="{{ $menu->icon != null ? $menu->icon : 'fa fa-home' }}"></i>
                     <span>{{ $menu->display_name }}</span></a>
+                @endif
+                
             </li>
             <hr class="sidebar-divider my-0">
             @else
-            <li class="nav-item {{ in_array($menu->parent_show,[getParentShowOf($current_page),getParentOf($current_page)]) ? 'active' : '' }}">
-                <a class="nav-link {{ in_array($menu->parent_show,[getParentShowOf($current_page),getParentOf($current_page)]) ? 'collapsed' : '' }}" 
-                    href="#" 
-                    data-toggle="collapse" 
-                    data-target="#collapse_{{ $menu->route }}"
-                    aria-expanded="{{ $menu->parent_show == getParentOf($current_page) && getParentOf($current_page) != null ? 'false' : 'true' }}" 
-                    aria-controls="collapse_{{ $menu->route }}">
-                    <i class="{{ $menu->icon != null ? $menu->icon : 'fa fa-home' }}"></i>
-                    <span>{{ $menu->display_name }}</span>
-                </a>
-               
-                @if (isset($menu->appeardChildren) && count($menu->appeardChildren) > 0)
-                <div id="collapse_{{ $menu->route }}" class="collapse {{  in_array($menu->parent_show,[getParentShowOf($current_page),getParentOf($current_page)]) ? 'show' : ''  }}" 
-                    aria-labelledby="heading_{{ $menu->route }}" 
-                    data-parent="#accordionSidebar">
-                    <div class="bg-white py-2 collapse-inner rounded">
-                       @foreach ( $menu->appeardChildren as $sub_menu)
-                          <a class="collapse-item {{ (int) (getParentOf($current_page))+1 ? 'active' : '' }}" href="{{ route('admin.'.$sub_menu->as) }}">{{ $sub_menu->display_name }}</a>
-                       @endforeach
+        
+                @if (auth()->user()->ability('admin', $menu->name))
+                <li class="nav-item {{ in_array($menu->parent_show,[getParentShowOf($current_page),getParentOf($current_page)]) ? 'active' : '' }}">
+                    <a class="nav-link {{ in_array($menu->parent_show,[getParentShowOf($current_page),getParentOf($current_page)]) ? 'collapsed' : '' }}" 
+                        href="#" 
+                        data-toggle="collapse" 
+                        data-target="#collapse_{{ $menu->route }}"
+                        aria-expanded="{{ $menu->parent_show == getParentOf($current_page) && getParentOf($current_page) != null ? 'false' : 'true' }}" 
+                        aria-controls="collapse_{{ $menu->route }}">
+                        <i class="{{ $menu->icon != null ? $menu->icon : 'fa fa-home' }}"></i>
+                        <span>{{ $menu->display_name }}</span>
+                    </a>
+                
+                    @if (isset($menu->appeardChildren) && count($menu->appeardChildren) > 0)
+                    
+                    <div id="collapse_{{ $menu->route }}" class="collapse {{  in_array($menu->parent_show,[getParentShowOf($current_page),getParentOf($current_page)]) ? 'show' : ''  }}" 
+                        aria-labelledby="heading_{{ $menu->route }}" 
+                        data-parent="#accordionSidebar">
+                        <div class="bg-white py-2 collapse-inner rounded">
+                        @foreach ( $menu->appeardChildren as $sub_menu)
+                            @if (auth()->user()->ability('admin', $sub_menu->name))
+                                <a class="collapse-item {{ (int) (getParentOf($current_page))+1 ? 'active' : '' }}" href="{{ route('admin.'.$sub_menu->as) }}">{{ $sub_menu->display_name }}</a>
+                            @endif
+                        @endforeach
+                        </div>
                     </div>
-                </div>
+                    @endif
+                
+                </li>
                 @endif
-               
-            </li>
             @endif
         @endforeach
       
