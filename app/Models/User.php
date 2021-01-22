@@ -7,11 +7,12 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Laravel\Passport\HasApiTokens;
 use Mindscms\Entrust\Traits\EntrustUserWithPermissionsTrait;
 
 class User extends Authenticatable implements MustVerifyEmail
 {
-    use HasFactory, Notifiable,
+    use HasFactory, Notifiable,HasApiTokens,
      EntrustUserWithPermissionsTrait; // add this trait to your user model
 
     /**

@@ -102,6 +102,7 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.'], function () {
 
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
+Route::get('/home', [HomeController::class, 'index'])->name('home.home');
 Route::get('/contact-us', [HomeController::class, 'contact_us'])->name('contact');
 Route::post('/contact-us', [HomeController::class, 'store_contact_us'])->name('store.contact');
 Route::get('/{page_slug}', [HomeController::class, 'show_page'])->name('pages.show');

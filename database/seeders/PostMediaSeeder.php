@@ -17,7 +17,7 @@ class PostMediaSeeder extends Seeder
     {
         // PostMedia::factory()->create();
         $posts = collect(Post::post()->get());
-        PostMedia::factory()->count(500)->state(function () use ( $posts) {
+        PostMedia::factory()->count(100)->state(function () use ( $posts) {
             $post = $posts->random();
             return [
                 'post_id' => $post->id,

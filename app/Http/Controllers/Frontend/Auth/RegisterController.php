@@ -83,10 +83,16 @@ class RegisterController extends Controller
 
     protected function registered(Request $request, $user)
     {
+        if ($request->wantsJson()) {
+          return response()->json(
+              [
+                'error'=>false,
+                'message'=>'Your account registered successfully , Please check your email to activate your account',
+              ]);
+        }
        return redirect()->route('home')->with([
         'message'=>"Your account registered successfully , Please check your email to activate your account",
         'alert-type'=>'success'
-
        ]);
     }
 }
