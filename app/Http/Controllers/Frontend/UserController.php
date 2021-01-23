@@ -74,7 +74,7 @@ class UserController extends Controller
         $user = auth()->user();
         if (Hash::check($request->current_password, $user->password)) {
             $update = $user->update([
-                'password' => bcrypt($request->password),
+                'password' => $request->password,
             ]);
 
             if ($update) {

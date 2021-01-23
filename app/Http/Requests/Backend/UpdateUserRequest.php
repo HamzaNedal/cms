@@ -39,8 +39,6 @@ class UpdateUserRequest extends FormRequest
     {
         if(!$this->password){
             $this->request->remove('password');
-        }else{
-            $this->password = bcrypt($this->password);
         }
     }
 }

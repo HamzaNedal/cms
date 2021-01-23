@@ -37,10 +37,11 @@ class CreateUserRequest extends FormRequest
     protected function prepareForValidation()
     {
         $this->merge([
-            'password' => bcrypt($this->password),
             'email_verified_at' => Carbon::now(),
             'bio' => $this->bio,
             'receive_email' => $this->receive_email,
         ]);
     }
+
+    
 }
