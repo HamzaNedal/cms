@@ -27,6 +27,7 @@ class PostResource extends JsonResource
             'media'=> MediaResource::collection($this->media),
             'comments'=> $this->comments->count(),
             'active_comments'=> $this->comments->where('status',1)->count(),
+
         ];
     }
 }

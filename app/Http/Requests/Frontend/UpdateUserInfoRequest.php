@@ -3,6 +3,7 @@
 namespace App\Http\Requests\Frontend;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Stevebauman\Purify\Facades\Purify;
 
 class UpdateUserInfoRequest extends FormRequest
 {
@@ -31,5 +32,13 @@ class UpdateUserInfoRequest extends FormRequest
             'receive_email' => 'required',
             'user_image'    => 'nullable|image|max:20000,mimes:jpeg,jpg,png'
         ];
+    }
+
+    protected function prepareForValidation()
+    {
+        $this->merge([
+            'bio' => Purify::clean($this->bio),
+            'name' => Purify::clean($this->name),
+        ]);
     }
 }

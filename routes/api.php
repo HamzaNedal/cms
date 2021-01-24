@@ -33,8 +33,14 @@ Route::group(['prefix' => 'v1'], function () {
     Route::post('/register', [AuthController::class, 'register']);
     Route::post('/refersh_token', [AuthController::class, 'refersh_token']);
 
+
+    Route::get('/my-posts', [UserController::class, 'my_posts']);
+    Route::get('/my-posts/create', [UserController::class, 'create']);
+    Route::post('/my-posts/create', [UserController::class, 'store_post']);
+    Route::get('/my-posts/{post}/edit', [UserController::class, 'edit_post']);
+    Route::put('/my-posts/{post}', [UserController::class, 'update_post']);
+    Route::delete('/my-posts/{post}', [UserController::class, 'destroy_post']);
     Route::post('/logout', [UserController::class, 'logout']);
-    Route::get('/details', [UserController::class, 'details']);
 });
 
 Route::get('/chart/comments_chart',[ApiController::class,'comments_charts']);

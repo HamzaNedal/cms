@@ -3,6 +3,7 @@
 namespace App\Http\Requests\Frontend;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Stevebauman\Purify\Facades\Purify;
 
 class CreateCommentRequest extends FormRequest
 {
@@ -29,5 +30,12 @@ class CreateCommentRequest extends FormRequest
             'url'       => 'nullable|url',
             'comment'   => 'required|min:10',
         ];
+    }
+    protected function prepareForValidation()
+    {
+        $this->merge([
+            'comment' => Purify::clean($this->comment),
+            'name' => Purify::clean($this->name),
+        ]);
     }
 }
