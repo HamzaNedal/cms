@@ -191,7 +191,10 @@ class UserController extends Controller
     }
     public function edit_comment($comment_id)
     {
-        $comment = Comment::whereId($comment_id)->whereHas('post')->first();
+        $comment = Comment::whereId($comment_id)->whereHas('post',function ($query)
+        {
+            $query->where('user_id',auth()->id());
+        })->first();
         if ($comment) {
             return view('frontend.users.edit_comment', compact('comment'));
         }
@@ -210,11 +213,7 @@ class UserController extends Controller
 
             $request->comment      = Purify::clean($request->comment);
             $comment->update($request->all());
-
-            if ($request->status == 1) {
-                Cache::forget('recent_comments');
-            }
-
+            Cache::forget('recent_comments');
             return redirect()->back()->with([
                 'message' => 'Comment updated successfully',
                 'alert-type' => 'success',

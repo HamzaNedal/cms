@@ -36,6 +36,8 @@ class CreateCommentRequest extends FormRequest
         $this->merge([
             'comment' => Purify::clean($this->comment),
             'name' => Purify::clean($this->name),
+            'ip_address' => request()->ip(),
+            'user_id'    => auth()->check() ? auth()->id() : null,
         ]);
     }
 }
