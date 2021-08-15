@@ -105,8 +105,8 @@
 
 
         @stack('js')
-        @php
+     {{--    @php
             $renderer = Debugbar::getJavascriptRenderer();
-        @endphp
+        @endphp --}}
 </body>
 </html>
