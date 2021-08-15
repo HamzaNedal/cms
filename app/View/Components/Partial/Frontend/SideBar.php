@@ -56,7 +56,7 @@ class SideBar extends Component
         }
         if(!Cache::has('global_archives')){
             $global_archives = Post::active()->post()
-            ->select(DB::raw('Year(updated_at) as year'),DB::raw('Month(updated_at) as month'))
+            ->select(DB::raw('extract(year from "updated_at") as year'),DB::raw('extract(month from "updated_at") as month'))
             ->orderBy('year','asc')
             ->pluck('year','month')
             ->map(function($value,$key){
