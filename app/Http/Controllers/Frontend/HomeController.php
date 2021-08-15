@@ -85,6 +85,7 @@ class HomeController extends Controller
     public function store_comment(CreateCommentRequest $request, Post $post)
     {
         if ($post->post_type == 'post' && $post->status == 1) {
+          
             $userId = auth()->check() ? auth()->id() : null;
             $request['ip_address']     = $request->ip();
             $request['comment']        = Purify::clean($request->comment);
@@ -92,14 +93,17 @@ class HomeController extends Controller
             $request['user_id']        = $userId;
 
             $comment = $post->comments()->create($request->all());
-            if (auth()->guest() || auth()->id() != $post->user_id && auth()->user()->hasRole(['editor', 'admin'])) {
+           
+            if (auth()->guest() || auth()->id() != $post->user_id ) {
                 $post->user->notify(new NewCommentForPostOwnerNotify($comment));
             }
+           
             User::whereHas('roles',function($query){
                 $query->whereIn('name',['admin','editor']);
             })->each(function($admin,$key) use ($comment){
                 $admin->notify(new NewCommentForAdminNotify($comment));
             });
+            // dd('test');
             return redirect()->back()->with([
                 'message' => 'Comment added successfully',
                 'alert-type' => 'success'

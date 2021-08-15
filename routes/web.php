@@ -52,7 +52,10 @@ Route::post('password/reset', [ResetPasswordController::class, 'reset'])->name('
 Route::get('email/verify', [VerificationController::class, 'show'])->name('verification.notice');
 Route::get('/email/verify/{id}/{hash}', [VerificationController::class, 'verify'])->name('verification.verify');
 Route::post('email/resend', [VerificationController::class, 'resend'])->name('verification.resend');
-
+Route::get('/test',function ()
+{
+   dd(asset('image'));
+});
 
 
 Route::group(['prefix' => 'admin', 'as' => 'admin.'], function () {

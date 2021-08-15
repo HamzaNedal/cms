@@ -18,7 +18,7 @@ class MediaResource extends JsonResource
             'file_name'=>$this->file_name,
             'file_type'=>$this->file_type,
             'file_size'=>$this->file_size,
-            'url'=>asset('assets/posts/'.$this->file_name),
+            'url'=> $this->file_name == null? asset('assets/posts/post.jpg') : asset('assets/posts/'.$this->file_name),
         ];
     }
 }

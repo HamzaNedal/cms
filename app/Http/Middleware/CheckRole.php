@@ -18,11 +18,11 @@ class CheckRole
      */
     public function handle(Request $request, Closure $next)
     {
+       
         $routeName = Route::getFacadeRoot()->current()->uri();
    
         $route = explode('/', $routeName);
         $roleRoutes = Role::distinct()->whereNotNull('allowed_route')->pluck('allowed_route')->toArray();
-
         if (auth()->check()) {
             if (!in_array($route[0], $roleRoutes)) {
                 return $next($request);

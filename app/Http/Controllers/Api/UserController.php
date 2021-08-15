@@ -31,7 +31,7 @@ class UserController extends Controller
 
     public function my_posts()
     {
-        return UsersPostsResource::collection(auth()->user()->posts);
+        return UsersPostResource::collection(auth()->user()->posts);
     }
 
 
@@ -121,7 +121,7 @@ class UserController extends Controller
     public function destroy_post($id)
     {
         $post = Post::whereId($id)->whereUserId(auth()->id())->first();
-
+	
         if ($post) {
             if ($post->media->count() > 0) {
                 foreach ($post->media as $media) {
@@ -129,15 +129,21 @@ class UserController extends Controller
                         unlink('assets/posts/' . $media->file_name);
                     }
                 }
+                $post->media()->delete();
             }
-            $post->media()->delete();
+            
             $post->delete();
             return $this->response_message(false,'Post deleted successfully');
         }
 
         return $this->response_message();
     }
-
+    public function updateStatus($id)
+    {
+        $post =  Post::whereId($id)->whereUserId(auth()->id())->first();
+        $post->update(['status'=>$post->status == 1 ? 0 : 1]);
+        return $this->response_message(false,'Post status updated successfully');
+    }
     public function comments()
     {
         $post_ides = auth()->user()->posts()->pluck('id');

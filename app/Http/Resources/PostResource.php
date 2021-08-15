@@ -14,6 +14,7 @@ class PostResource extends JsonResource
      */
     public function toArray($request)
     {
+
         return [
             'title'=>$this->title,
             'slug'=>$this->slug,
@@ -24,7 +25,7 @@ class PostResource extends JsonResource
             'author'=> new UserResource($this->user),
             'category'=> new CategoryResource($this->category),
             'tags'=> TagResource::collection($this->tags),
-            'media'=> MediaResource::collection($this->media),
+            'media'=> !empty($this->media->toArray()) ? MediaResource::collection($this->media) : [['file_name'=>'','file_type'=>'','file_size'=>'','url'=> asset('assets/posts/post.jpg')]],
             'comments'=> $this->comments->count(),
             'active_comments'=> $this->comments->where('status',1)->count(),
 

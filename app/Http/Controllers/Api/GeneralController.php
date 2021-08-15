@@ -4,9 +4,11 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Frontend\CreateCommentRequest;
+use App\Http\Resources\CommentResource;
 use App\Http\Resources\PostResource;
 use App\Http\Resources\ShowPostResource;
 use App\Models\Category;
+use App\Models\Comment;
 use App\Models\Contact;
 use App\Models\Post;
 use App\Models\Tag;
@@ -31,7 +33,16 @@ class GeneralController extends Controller
         }
         return response()->json(['error' => true, 'message' => 'No posts found', 201]);
     }
-
+    public function get_post_comments($slug)
+    {
+        
+        $comments = Comment::whereHas('post',function ($query) use ($slug)
+        {
+            $query->whereSlug($slug)->post()->active();
+        })
+        ->get();
+        return CommentResource::collection($comments);
+    }
     public function show_post($slug)
     {
         $post = Post::with(['category', 'user', 'media', 'approved_comments'])

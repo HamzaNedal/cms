@@ -79,7 +79,12 @@
         <h3 class="widget-title">Archives</h3>
         <ul>
             @foreach ($global_archives as $key => $val)
-                 <li><a href="{{ route('archive.posts',$key.'-'.$val) }}">{{ date("F",mktime(0,0,0,$key,1)).' '.$val }}</a></li>
+                @php
+                   $month =  \Carbon\Carbon::parse($val)->month;
+                   $year =  \Carbon\Carbon::parse($val)->year;
+                @endphp
+                 {{-- <li><a href="{{ route('archive.posts',$key.'-'.$val) }}">{{ date("F",mktime(0,0,0,$key,1)).' '.$val }}</a></li> --}}
+                 <li><a href="{{ route('archive.posts',$month.'-'.$year) }}">{{ $val }}</a></li>
             @endforeach
             
         </ul>

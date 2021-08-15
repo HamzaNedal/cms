@@ -25,7 +25,7 @@ class UsersPostResource extends JsonResource
             'create_date'=>$this->created_at->format('d-m-Y h:i a'),
             'category'=> new UsersCategoryResource($this->category),
             'tags'=> UsersTagResource::collection($this->tags),
-            'media'=> UsersMediaResource::collection($this->media),
+            'media'=> !empty($this->media->toArray()) ? UsersMediaResource::collection($this->media) : [['file_name'=>'','file_type'=>'','file_size'=>'','url'=> asset('assets/posts/post.jpg')]],
             'comments_count'=> $this->comments->count(),
             'comments'=> UsersPostsCommentsResource::collection($this->comments),
 

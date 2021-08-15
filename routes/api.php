@@ -33,6 +33,7 @@ Route::group(['prefix' => 'v1'], function () {
     Route::get('/author/{user}', [GeneralController::class, 'author']);
     Route::post('/add/comment/{slug}', [GeneralController::class, 'store_comment']);
     Route::post('/contact-us', [GeneralController::class, 'store_contact_us']);
+    Route::get('/show-post-comments/{slug}', [GeneralController::class, 'get_post_comments']);
 
     // Route::post('/login', [LoginController::class, 'login']);
     // Route::post('/register', [RegisterController::class, 'register']);
@@ -46,6 +47,7 @@ Route::group(['prefix' => 'v1'], function () {
         Route::post('/my-posts/create', [UserController::class, 'store_post']);
         Route::get('/my-posts/{post}/edit', [UserController::class, 'edit_post']);
         Route::put('/my-posts/{post}', [UserController::class, 'update_post']);
+        Route::put('/my-posts/status/{id}', [UserController::class, 'updateStatus']);
         Route::delete('/my-posts/{post}', [UserController::class, 'destroy_post']);
         Route::get('/comments', [UserController::class, 'comments']);
         Route::get('/comment/{id}/edit', [UserController::class, 'edit_comment']);

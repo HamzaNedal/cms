@@ -1,0 +1,1272 @@
+{
+	"info": {
+		"_postman_id": "03eb9ce6-34fb-47aa-93ca-2d95354f8f7a",
+		"name": "CMS",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "User Controller",
+			"item": [
+				{
+					"name": "User posts",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "X-Requested-With",
+								"value": "XMLHttpRequest",
+								"type": "text"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer ACCESS_TOKE",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "localhost:8000/api/v1/my-posts",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"v1",
+								"my-posts"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "logout",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "X-Requested-With",
+								"value": "XMLHttpRequest",
+								"type": "text"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer ACCESS_TOKE",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "localhost:8000/api/v1/logout",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"v1",
+								"logout"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "post-create",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "X-Requested-With",
+								"value": "XMLHttpRequest",
+								"type": "text"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer ACCESS_TOKE",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "localhost:8000/api/v1/my-posts/create",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"v1",
+								"my-posts",
+								"create"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "store post",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "X-Requested-With",
+								"value": "XMLHttpRequest",
+								"type": "text"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer ACCESS_TOKE",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "title",
+									"value": "test",
+									"type": "text"
+								},
+								{
+									"key": "description",
+									"value": "teststststststasdasdsadasdasdasdsadasasdasdasdasdasdasdasd",
+									"type": "text"
+								},
+								{
+									"key": "status",
+									"value": "1",
+									"type": "text"
+								},
+								{
+									"key": "comment_able",
+									"value": "1",
+									"type": "text"
+								},
+								{
+									"key": "category_id",
+									"value": "5",
+									"type": "text"
+								},
+								{
+									"key": "tags[]",
+									"value": "2",
+									"type": "text"
+								},
+								{
+									"key": "tags[]",
+									"value": "3",
+									"type": "text"
+								},
+								{
+									"key": "tags[]",
+									"value": "4",
+									"type": "text"
+								},
+								{
+									"key": "images[]",
+									"type": "file",
+									"src": "/home/hn/Pictures/1.jpeg"
+								}
+							]
+						},
+						"url": {
+							"raw": "localhost:8000/api/v1/my-posts/create",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"v1",
+								"my-posts",
+								"create"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "edit post",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "X-Requested-With",
+								"value": "XMLHttpRequest",
+								"type": "text"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer ACCESS_TOKE",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "localhost:8000/api/v1/my-posts/1003/edit",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"v1",
+								"my-posts",
+								"1003",
+								"edit"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update post",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "X-Requested-With",
+								"value": "XMLHttpRequest",
+								"type": "text"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer ACCESS_TOKE",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "title",
+									"value": "testUpdated",
+									"type": "text"
+								},
+								{
+									"key": "description",
+									"value": "testUpdatedtestUpdatedtestUpdatedtestUpdatedtestUpdatedtestUpdatedtestUpdatedtestUpdatedtestUpdatedtestUpdatedtestUpdatedtestUpdatedtestUpdatedtestUpdatedtestUpdated",
+									"type": "text"
+								},
+								{
+									"key": "status",
+									"value": "1",
+									"type": "text"
+								},
+								{
+									"key": "comment_able",
+									"value": "1",
+									"type": "text"
+								},
+								{
+									"key": "category_id",
+									"value": "3",
+									"type": "text"
+								},
+								{
+									"key": "",
+									"value": "",
+									"type": "text",
+									"disabled": true
+								}
+							]
+						},
+						"url": {
+							"raw": "localhost:8000/api/v1/my-posts/1003",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"v1",
+								"my-posts",
+								"1003"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete post",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "X-Requested-With",
+								"value": "XMLHttpRequest",
+								"type": "text"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer ACCESS_TOKE",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "localhost:8000/api/v1/my-posts/1003",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"v1",
+								"my-posts",
+								"1003"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "show comments",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "X-Requested-With",
+								"value": "XMLHttpRequest",
+								"type": "text"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer ACCESS_TOKE",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "localhost:8000/api/v1/comments",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"v1",
+								"comments"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "edit comment",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "X-Requested-With",
+								"value": "XMLHttpRequest",
+								"type": "text"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer ACCESS_TOKE",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "localhost:8000/api/v1/comment/6/edit",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"v1",
+								"comment",
+								"6",
+								"edit"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update comment",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "X-Requested-With",
+								"value": "XMLHttpRequest",
+								"type": "text"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer ACCESS_TOKE",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "name",
+									"value": "123456789",
+									"type": "text"
+								},
+								{
+									"key": "email",
+									"value": "asdasdsad@mail.com",
+									"type": "text"
+								},
+								{
+									"key": "comment",
+									"value": "sadfgdsfggfdghasdfdfafafad",
+									"type": "text"
+								},
+								{
+									"key": "status",
+									"value": "1",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "localhost:8000/api/v1/comment/6",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"v1",
+								"comment",
+								"6"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete comment",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "X-Requested-With",
+								"value": "XMLHttpRequest",
+								"type": "text"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer ACCESS_TOKE",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "localhost:8000/api/v1/comment/6",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"v1",
+								"comment",
+								"6"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "read notifiaction",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "X-Requested-With",
+								"value": "XMLHttpRequest",
+								"type": "text"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer ACCESS_TOKE",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "localhost:8000/api/v1/notifications/read/4f957980-fee6-495a-8537-cd8aa72baa62",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"v1",
+								"notifications",
+								"read",
+								"4f957980-fee6-495a-8537-cd8aa72baa62"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get notification",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "X-Requested-With",
+								"value": "XMLHttpRequest",
+								"type": "text"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer ACCESS_TOKE",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "localhost:8000/api/v1/notifications/get",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"v1",
+								"notifications",
+								"get"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "get_posts",
+			"protocolProfileBehavior": {
+				"disabledSystemHeaders": {
+					"accept": true
+				}
+			},
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiIxIiwianRpIjoiMDU4MGI0ZGIwN2FhNDA0MzU5NDAyMWU1MzA0ZWFjMTQwZGM4NDYwODgyMmUyNDM4MTg2YjBkNGFmZjE2NjEzNDBmZDI0OGRjMTQzMjdmMzciLCJpYXQiOiIxNjExMzA1MDY5LjQxNzY4NSIsIm5iZiI6IjE2MTEzMDUwNjkuNDE3Njg4IiwiZXhwIjoiMTY0Mjg0MTA2OS40MTM3NzUiLCJzdWIiOiIzIiwic2NvcGVzIjpbXX0.eIMHnpvC4vlt3yEKd2opWP94rhjbEJqeL9UsEETRnDHwT08DUUjq5vrU9kO-JClq-y8OfmxS8mJd-hSn8WFYYU8bg2mXxkkqK8gw3NNkzmVvJmlCdsfVHht1EbcVYZBZwlNKASVlD1dzThrbi9QCeH2gTtqlGzf6k39ZF2pKxFHWbf5gfAJy8VYlN1GHZX65p4mxfv2N_PQM3QnywAPdH5x-sYKvK9IZP3EkPVh9PgljdAkUQ5VdKHrobhMBjSN2cT33cYVurKSCOUk4cRi2hyZqoL6SX8ihsuIEBtQN_BCP225MhT8sWh6upGUphU9EQiL_Hx_vvqovshM5kTiVoq8ZQTc8YNTHGmybketx5Xa-tCszgaNm5BvPlZG61ZsMEgVSq3avp-a_DKre8KLBOik-eNoeLfkjpxTQm_p4oyrbyjk4kEGmENA-QFyrSV0uqlFVVuBZZEe6ywqUkV7qLKnpX2Uxn7chXXL0AjV9bZxHHt0XfltiJgROLI-T5HZB_g33j1uHc37ow3Ue4r5hqR_L1gtxmYxsVr7BnwoZp13_vEDnHL3yygiguBuElJk7VI56LlM4T0o5AXc9oqza-iFJCoYCcALPXwoY7U2-NASI1gKfVZTOVZkqAqwWiOUs7bzve1cGJP0RXij8BamBK53J0qO0LgX131IV4EEMiFs",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "X-Requested-With",
+						"value": "XMLHttpRequest",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "localhost:8000/api/v1/get-posts?page=2",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"v1",
+						"get-posts"
+					],
+					"query": [
+						{
+							"key": "page",
+							"value": "2"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "show-post",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8000/api/v1/show-post/1",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"v1",
+						"show-post",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "register",
+			"protocolProfileBehavior": {
+				"disabledSystemHeaders": {
+					"accept": true
+				}
+			},
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "X-Requested-With",
+						"value": "XMLHttpRequest",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "name",
+							"value": "hamza6",
+							"type": "text"
+						},
+						{
+							"key": "username",
+							"value": "hamza6",
+							"type": "text"
+						},
+						{
+							"key": "email",
+							"value": "hamza6@gmail.com",
+							"type": "text"
+						},
+						{
+							"key": "mobile",
+							"value": "4577575755",
+							"type": "text"
+						},
+						{
+							"key": "password",
+							"value": "123456789",
+							"type": "text"
+						},
+						{
+							"key": "password_confirmation",
+							"value": "123456789",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "localhost:8000/api/v1/register",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"v1",
+						"register"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "login",
+			"protocolProfileBehavior": {
+				"disabledSystemHeaders": {
+					"accept": true
+				}
+			},
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "X-Requested-With",
+						"value": "XMLHttpRequest",
+						"type": "text"
+					},
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "email",
+							"value": "user1@user.com",
+							"type": "text"
+						},
+						{
+							"key": "password",
+							"value": "12345678",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "localhost:8000/api/v1/login",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"v1",
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "refersh_token",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "X-Requested-With",
+						"value": "XMLHttpRequest",
+						"type": "text"
+					},
+					{
+						"warning": "This is a duplicate header and will be overridden by the Content-Type header generated by Postman.",
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "refresh_token_code",
+						"value": "",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "email",
+							"value": "",
+							"type": "text"
+						},
+						{
+							"key": "password",
+							"value": "",
+							"type": "text"
+						},
+						{
+							"key": "refresh_token_code",
+							"value": "",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "localhost:8000/api/v1/refersh_token",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"v1",
+						"refersh_token"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "search",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "X-Requested-With",
+						"value": "XMLHttpRequest",
+						"type": "text"
+					},
+					{
+						"key": "Authorization",
+						"value": "Bearer ACCESS_TOKE",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"url": {
+					"raw": "localhost:8000/api/v1/posts/search?keyword=aaa",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"v1",
+						"posts",
+						"search"
+					],
+					"query": [
+						{
+							"key": "keyword",
+							"value": "aaa"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "search post by category",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "X-Requested-With",
+						"value": "XMLHttpRequest",
+						"type": "text"
+					},
+					{
+						"key": "Authorization",
+						"value": "Bearer ACCESS_TOKE",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"url": {
+					"raw": "localhost:8000/api/v1/category/dr-malcolm-grant",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"v1",
+						"category",
+						"dr-malcolm-grant"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "search post by tags",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "X-Requested-With",
+						"value": "XMLHttpRequest",
+						"type": "text"
+					},
+					{
+						"key": "Authorization",
+						"value": "Bearer ACCESS_TOKE",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"url": {
+					"raw": "localhost:8000/api/v1/tags/flowers",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"v1",
+						"tags",
+						"flowers"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "search post by user",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "X-Requested-With",
+						"value": "XMLHttpRequest",
+						"type": "text"
+					},
+					{
+						"key": "Authorization",
+						"value": "Bearer ACCESS_TOKE",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"url": {
+					"raw": "localhost:8000/api/v1/author/user1",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"v1",
+						"author",
+						"user1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "post comment",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "X-Requested-With",
+						"value": "XMLHttpRequest",
+						"type": "text"
+					},
+					{
+						"key": "Authorization",
+						"value": "Bearer ACCESS_TOKE",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "name",
+							"value": "Hi",
+							"type": "text"
+						},
+						{
+							"key": "email",
+							"value": "my@mail.com",
+							"type": "text"
+						},
+						{
+							"key": "comment",
+							"value": "asdasdsadasdasdasdasdasdasd",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "localhost:8000/api/v1/add/comment/test-1",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"v1",
+						"add",
+						"comment",
+						"test-1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "contact-us",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "X-Requested-With",
+						"value": "XMLHttpRequest",
+						"type": "text"
+					},
+					{
+						"key": "Authorization",
+						"value": "Bearer ACCESS_TOKE",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "name",
+							"value": "4545454",
+							"type": "text"
+						},
+						{
+							"key": "email",
+							"value": "asdasd@mail.com",
+							"type": "text"
+						},
+						{
+							"key": "title",
+							"value": "45454545",
+							"type": "text"
+						},
+						{
+							"key": "message",
+							"value": "545454dsfsdfdsfsdfdsf",
+							"type": "text"
+						},
+						{
+							"key": "mobile",
+							"value": "23423423423",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "localhost:8000/api/v1/contact-us",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"v1",
+						"contact-us"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

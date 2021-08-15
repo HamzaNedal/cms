@@ -39,7 +39,7 @@ class AuthController extends Controller
     public function getRefreshedToken($email, $password)
     {
 
-        $response = Http::asForm()->post('http://localhost:8001/oauth/token', [
+        $response = Http::asForm()->post('http://192.168.0.15:8001/oauth/token', [
             'grant_type' => 'password',
             'client_id' => config('passport.personal_access_client.id'),
             'client_secret' => config('passport.personal_access_client.secret'),
@@ -47,8 +47,14 @@ class AuthController extends Controller
             'password' => $password,
             'scope' => '*',
         ]);
-
-        return $response->json();
+       // dd($response);
+        $response = $response->json();
+        $response['error'] = false ;
+	$response['username'] = auth()->user()->username;
+	$response['name'] = auth()->user()->name;
+	$response['email'] = auth()->user()->email;
+	$response['image'] = auth()->user()->user_image != null ? asset('profile/',auth()->user()->user_image) : asset('assets/users/avatar.png') ;
+        return $response;
     }
 
     public function token($user)
@@ -64,7 +70,7 @@ class AuthController extends Controller
         try {
             $refresh_token = $request->header('refresh_token_code');
 
-            $response = Http::asForm()->post('http://localhost:8001/oauth/token', [
+            $response = Http::asForm()->post('http://192.168.0.15:8001/oauth/token', [
                 'grant_type' => 'refresh_token',
                 'refresh_token' => $refresh_token,
                 'client_id' => config('passport.personal_access_client.id'),
